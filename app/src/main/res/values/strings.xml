@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Renergy</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="username_input">Username Input</string>
+    <string name="password_input">Password Input</string>
+    <string name="logout">Logout</string>
+    <string name="bem_vindo_utilizador">Bem vindo utilizador!</string>
+    <string name="come_ar_inspe_o_com_qr">Começar inspeção com QR</string>
+    <string name="todo">TODO</string>
+    <string name="iniciar">Iniciar</string>
+    <string name="id_inspe_o">Id Inspeção</string>
+    <string name="qrCoderResult">...</string>
+</resources>
