@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.projetopdmsam">
+    package="com.example.projetopdmam">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -16,24 +16,24 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/renergy_icons_foreground"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ProjetoPDMSAM">
+        android:theme="@style/Theme.ProjetoPDMAM">
         <activity
-            android:name=".DetalhesCaso"
+            android:name="com.example.projetopdmam.DetalhesCaso"
             android:exported="true" />
         <activity
-            android:name=".NovoCaso"
+            android:name="com.example.projetopdmam.NovoCaso"
             android:exported="true" />
         <activity
-            android:name=".QRCodeReader"
+            android:name="com.example.projetopdmam.QRCodeReader"
             android:exported="true" />
         <activity
-            android:name=".InspecaoADecorrer"
+            android:name="com.example.projetopdmam.InspecaoADecorrer"
             android:exported="true" />
         <activity
-            android:name=".PaginaInicial"
+            android:name="com.example.projetopdmam.PaginaInicial"
             android:exported="true" />
         <activity
-            android:name=".Login"
+            android:name="com.example.projetopdmam.Login"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

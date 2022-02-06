@@ -1,4 +1,4 @@
-package com.example.projetopdmsam.Backend;
+package com.example.projetopdmam.Backend;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

@@ -1,10 +1,9 @@
-package com.example.projetopdmsam;
+package com.example.projetopdmam;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.core.content.ContextCompat;
 
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -23,12 +22,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.projetopdmsam.Backend.BaseDados;
-import com.example.projetopdmsam.Backend.RetrofitClient;
-import com.example.projetopdmsam.Modelos.Caso;
-import com.example.projetopdmsam.Modelos.Inspecao;
-import com.example.projetopdmsam.Modelos.Obra;
-import com.example.projetopdmsam.Modelos.Utilizador;
+import com.example.projetopdmam.Backend.BaseDados;
+import com.example.projetopdmam.Backend.RetrofitClient;
+import com.example.projetopdmam.Modelos.Caso;
+import com.example.projetopdmam.Modelos.Inspecao;
+import com.example.projetopdmam.Modelos.Obra;
+import com.example.projetopdmam.Modelos.Utilizador;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;

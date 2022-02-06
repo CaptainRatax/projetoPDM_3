@@ -1,4 +1,4 @@
-package com.example.projetopdmsam;
+package com.example.projetopdmam;
 
 import org.junit.Test;
 

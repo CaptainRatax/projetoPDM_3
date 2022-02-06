@@ -1,16 +1,15 @@
-package com.example.projetopdmsam.Backend;
+package com.example.projetopdmam.Backend;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.Build;
 
-import com.example.projetopdmsam.Modelos.Caso;
-import com.example.projetopdmsam.Modelos.Inspecao;
-import com.example.projetopdmsam.Modelos.Obra;
-import com.example.projetopdmsam.Modelos.Utilizador;
+import com.example.projetopdmam.Modelos.Caso;
+import com.example.projetopdmam.Modelos.Inspecao;
+import com.example.projetopdmam.Modelos.Obra;
+import com.example.projetopdmam.Modelos.Utilizador;
 
 import java.util.ArrayList;
 import java.util.List;

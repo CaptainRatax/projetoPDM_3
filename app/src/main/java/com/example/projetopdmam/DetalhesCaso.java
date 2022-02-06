@@ -1,4 +1,4 @@
-package com.example.projetopdmsam;
+package com.example.projetopdmam;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -17,9 +17,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.projetopdmsam.Backend.BaseDados;
-import com.example.projetopdmsam.Backend.RetrofitClient;
-import com.example.projetopdmsam.Modelos.Caso;
+import com.example.projetopdmam.Backend.BaseDados;
+import com.example.projetopdmam.Backend.RetrofitClient;
+import com.example.projetopdmam.Modelos.Caso;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.JsonObject;
 

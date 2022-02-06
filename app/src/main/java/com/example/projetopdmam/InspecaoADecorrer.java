@@ -1,4 +1,4 @@
-package com.example.projetopdmsam;
+package com.example.projetopdmam;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,17 +12,15 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.projetopdmsam.Backend.BaseDados;
-import com.example.projetopdmsam.Backend.RetrofitClient;
-import com.example.projetopdmsam.Modelos.Caso;
-import com.example.projetopdmsam.Modelos.Inspecao;
-import com.example.projetopdmsam.Modelos.Obra;
-import com.example.projetopdmsam.Modelos.Utilizador;
+import com.example.projetopdmam.Backend.BaseDados;
+import com.example.projetopdmam.Backend.RetrofitClient;
+import com.example.projetopdmam.Modelos.Caso;
+import com.example.projetopdmam.Modelos.Inspecao;
+import com.example.projetopdmam.Modelos.Obra;
+import com.example.projetopdmam.Modelos.Utilizador;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.JsonObject;
 
