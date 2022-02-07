@@ -16,27 +16,21 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.projetopdmam.Backend.BaseDados;
-import com.example.projetopdmam.Backend.RetrofitClient;
 import com.example.projetopdmam.Modelos.Caso;
-import com.example.projetopdmam.Modelos.Inspecao;
-import com.example.projetopdmam.Modelos.Obra;
+import com.example.projetopdmam.Modelos.Estacionamento;
+import com.example.projetopdmam.Modelos.Lugar;
 import com.example.projetopdmam.Modelos.Utilizador;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.gson.JsonObject;
 
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class InspecaoADecorrer extends AppCompatActivity {
 
     BaseDados bd = new BaseDados(this);
 
     Utilizador loggedInUser;
-    Inspecao inspecaoADecorrer;
-    Obra obra;
+    Estacionamento estacionamentoADecorrer;
+    Lugar lugar;
     List<Caso> listaCasos;
 
     ListView listview;
@@ -48,9 +42,9 @@ public class InspecaoADecorrer extends AppCompatActivity {
         setContentView(R.layout.activity_inspecao_adecorrer);
 
         loggedInUser = bd.getLoggedInUser();
-        inspecaoADecorrer = bd.getInspecaoADecorrer();
-        obra = bd.getObraPorId(inspecaoADecorrer.getObraId());
-        listaCasos = bd.getCasosPorIdInspecao(inspecaoADecorrer.getId());
+        estacionamentoADecorrer = bd.getEstacionamentoADecorrer();
+        lugar = bd.getLugarPorId(estacionamentoADecorrer.getLugarId());
+        listaCasos = bd.getCasosPorIdEstacionamento(estacionamentoADecorrer.getId());
 
         listview = findViewById(R.id.listview);
 

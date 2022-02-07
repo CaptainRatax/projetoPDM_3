@@ -13,11 +13,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9b90b246-22cf-41a9-8bd9-4fee5a3bba75" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/Backend/Api.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/Backend/Api.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/Backend/BaseDados.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/Backend/BaseDados.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/DetalhesCaso.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/DetalhesCaso.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/InspecaoADecorrer.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/InspecaoADecorrer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/Login.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/Modelos/Caso.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/Modelos/Caso.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/Modelos/Inspecao.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/Modelos/Estacionamento.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/Modelos/Obra.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/Modelos/Lugar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/Modelos/Utilizador.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/Modelos/Utilizador.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/NovoCaso.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/NovoCaso.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/PaginaInicial.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/PaginaInicial.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/QRCodeReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/QRCodeReader.java" afterDir="false" />
     </list>

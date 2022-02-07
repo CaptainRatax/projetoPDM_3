@@ -4,32 +4,38 @@ public class Utilizador {
 
     int Id;
     String Nome;
-    String Username;
-    String Password;
-    String Email;
+    String Morada;
+    String CodigoPostal;
     String Telemovel;
+    String NIF;
+    String Email;
+    String Password;
     boolean IsActive;
 
     public Utilizador() {
 
     }
 
-    public Utilizador(int id, String nome, String username, String password, String email, String telemovel, boolean isActive) {
+    public Utilizador(int id, String nome, String morada, String codigoPostal, String telemovel, String NIF, String email, String password, boolean isActive) {
         Id = id;
         Nome = nome;
-        Username = username;
-        Password = password;
-        Email = email;
+        Morada = morada;
+        CodigoPostal = codigoPostal;
         Telemovel = telemovel;
+        this.NIF = NIF;
+        Email = email;
+        Password = password;
         IsActive = isActive;
     }
 
-    public Utilizador(String nome, String username, String password, String email, String telemovel, boolean isActive) {
+    public Utilizador(String nome, String morada, String codigoPostal, String telemovel, String NIF, String email, String password, boolean isActive) {
         Nome = nome;
-        Username = username;
-        Password = password;
-        Email = email;
+        Morada = morada;
+        CodigoPostal = codigoPostal;
         Telemovel = telemovel;
+        this.NIF = NIF;
+        Email = email;
+        Password = password;
         IsActive = isActive;
     }
 
@@ -49,20 +55,36 @@ public class Utilizador {
         Nome = nome;
     }
 
-    public String getUsername() {
-        return Username;
+    public String getMorada() {
+        return Morada;
     }
 
-    public void setUsername(String username) {
-        Username = username;
+    public void setMorada(String morada) {
+        Morada = morada;
     }
 
-    public String getPassword() {
-        return Password;
+    public String getCodigoPostal() {
+        return CodigoPostal;
     }
 
-    public void setPassword(String password) {
-        Password = password;
+    public void setCodigoPostal(String codigoPostal) {
+        CodigoPostal = codigoPostal;
+    }
+
+    public String getTelemovel() {
+        return Telemovel;
+    }
+
+    public void setTelemovel(String telemovel) {
+        Telemovel = telemovel;
+    }
+
+    public String getNIF() {
+        return NIF;
+    }
+
+    public void setNIF(String NIF) {
+        this.NIF = NIF;
     }
 
     public String getEmail() {
@@ -73,12 +95,12 @@ public class Utilizador {
         Email = email;
     }
 
-    public String getTelemovel() {
-        return Telemovel;
+    public String getPassword() {
+        return Password;
     }
 
-    public void setTelemovel(String telemovel) {
-        Telemovel = telemovel;
+    public void setPassword(String password) {
+        Password = password;
     }
 
     public boolean isActive() {

@@ -15,12 +15,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.projetopdmam.Backend.BaseDados;
-import com.example.projetopdmam.Backend.RetrofitClient;
-import com.example.projetopdmam.Modelos.Inspecao;
-import com.example.projetopdmam.Modelos.Obra;
+import com.example.projetopdmam.Modelos.Estacionamento;
+import com.example.projetopdmam.Modelos.Lugar;
 import com.example.projetopdmam.Modelos.Utilizador;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.google.zxing.Result;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
@@ -30,9 +28,6 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class QRCodeReader extends AppCompatActivity implements ZXingScannerView.ResultHandler {
 
@@ -90,7 +85,7 @@ public class QRCodeReader extends AppCompatActivity implements ZXingScannerView.
             txtResult.setText(rawResult.getText()); //Altera o texto na parte de baixo do ecrã para o que foi lido no QR Code
             if(isNumeric(rawResult.getText())){
                 int id = Integer.parseInt(rawResult.getText());
-                Obra obra = new Obra();
+                Lugar lugar = new Lugar();
                 if(id > 0){
                     if(isInternetAvailable()){
                         //Chamada à API para verificar se o id da obra existe
@@ -224,34 +219,34 @@ public class QRCodeReader extends AppCompatActivity implements ZXingScannerView.
     }
 
     //Função auxiliar usada para reciclar código usado duas vezes para começar a inspeção localmente
-    private void comecarInspecao(Obra obra, JsonObject inspecao){
+    private void comecarInspecao(Lugar lugar, JsonObject inspecao){
         //Cria um objeto do tipo Inspecao usando o Json que recebeu da API
-        Inspecao inspecaoADecorrer = new Inspecao();
-        inspecaoADecorrer.setId(inspecao.get("Id").getAsInt());
-        inspecaoADecorrer.setDataInicio(inspecao.get("DataInicio").getAsString());
-        inspecaoADecorrer.setDataFim(inspecao.get("DataFim").getAsString());
-        inspecaoADecorrer.setFinished(inspecao.get("IsFinished").getAsBoolean());
-        inspecaoADecorrer.setInspetorId(inspecao.get("InspectorId").getAsInt());
-        inspecaoADecorrer.setObraId(inspecao.get("ObraId").getAsInt());
-        inspecaoADecorrer.setActive(inspecao.get("IsActive").getAsBoolean());
-        if (bd.getInspecaoADecorrer().isActive()) { //Verifica se existe alguma inspeção a decorrer localmente
+        Estacionamento estacionamentoADecorrer = new Estacionamento();
+        estacionamentoADecorrer.setId(inspecao.get("Id").getAsInt());
+        estacionamentoADecorrer.setDataEntrada(inspecao.get("DataEntrada").getAsString());
+        estacionamentoADecorrer.setDataSaida(inspecao.get("DataSaida").getAsString());
+        estacionamentoADecorrer.setEstacionamentoLivre(inspecao.get("EstacionamentoLivre").getAsBoolean());
+        estacionamentoADecorrer.setUtilizadorId(inspecao.get("UtilizadorId").getAsInt());
+        estacionamentoADecorrer.setLugarId(inspecao.get("LugarId").getAsInt());
+        estacionamentoADecorrer.setActive(inspecao.get("IsActive").getAsBoolean());
+        if (bd.getEstacionamentoADecorrer().isActive()) { //Verifica se existe alguma inspeção a decorrer localmente
             //Existe uma inspeção a decorrer localmente
-            if (bd.getInspecaoADecorrer() != inspecaoADecorrer) { //Verifica se a inspeção que está a decorrer localmente é diferente da recebida
-                bd.acabarInspecaoLocal(); //Se for acaba a inspeção local
-                bd.comecarInspecaoLocal(inspecaoADecorrer); //e começa uma nova com os dados da inspeção recebida
+            if (bd.getEstacionamentoADecorrer() != estacionamentoADecorrer) { //Verifica se a inspeção que está a decorrer localmente é diferente da recebida
+                bd.acabarEstacionamentoLocal(); //Se for acaba a inspeção local
+                bd.comecarEstacionamentoLocal(estacionamentoADecorrer); //e começa uma nova com os dados da inspeção recebida
             }
         } else {
             //Não existe nenhuma inspeção a decorrer localmente
-            bd.comecarInspecaoLocal(inspecaoADecorrer); //Começa a inspeção localmente
+            bd.comecarEstacionamentoLocal(estacionamentoADecorrer); //Começa a inspeção localmente
         }
-        if (bd.getObraPorId(obra.getId()).isActive()) {//Verifica se a obra já existe localmente
+        if (bd.getLugarPorId(lugar.getId()).isActive()) {//Verifica se a obra já existe localmente
             //A obra existe localmente
-            if (bd.getObraPorId(obra.getId()) != obra) {//Verifica se a obra que existe localmente é diferente da recebida
-                bd.editarObra(obra); //Se for altera a obra local e coloca os dados da obra recebida
+            if (bd.getLugarPorId(lugar.getId()) != lugar) {//Verifica se a obra que existe localmente é diferente da recebida
+                bd.editarLugar(lugar); //Se for altera a obra local e coloca os dados da obra recebida
             }
         } else {
             //A obra não existe localmente
-            bd.adicionarObra(obra); //Cria a obra localmente
+            bd.adicionarLugar(lugar); //Cria a obra localmente
         }
 
         Intent intent = new Intent(getApplicationContext(), InspecaoADecorrer.class);

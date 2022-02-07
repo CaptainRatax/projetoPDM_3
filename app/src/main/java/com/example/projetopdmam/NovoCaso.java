@@ -25,8 +25,8 @@ import android.widget.Toast;
 import com.example.projetopdmam.Backend.BaseDados;
 import com.example.projetopdmam.Backend.RetrofitClient;
 import com.example.projetopdmam.Modelos.Caso;
-import com.example.projetopdmam.Modelos.Inspecao;
-import com.example.projetopdmam.Modelos.Obra;
+import com.example.projetopdmam.Modelos.Estacionamento;
+import com.example.projetopdmam.Modelos.Lugar;
 import com.example.projetopdmam.Modelos.Utilizador;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.JsonObject;
@@ -44,8 +44,8 @@ public class NovoCaso extends AppCompatActivity {
     BaseDados bd = new BaseDados(this);
 
     Utilizador loggedInUser;
-    Inspecao inspecaoADecorrer;
-    Obra obra;
+    Estacionamento estacionamentoADecorrer;
+    Lugar lugar;
     String imagemBase64 = "";
     private static final int IMG_REQUEST = 21;
 
@@ -57,8 +57,8 @@ public class NovoCaso extends AppCompatActivity {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         setContentView(R.layout.activity_novo_caso);
         loggedInUser=bd.getLoggedInUser();
-        inspecaoADecorrer=bd.getInspecaoADecorrer();
-        obra=bd.getObraPorId(inspecaoADecorrer.getObraId());
+        estacionamentoADecorrer =bd.getEstacionamentoADecorrer();
+        lugar =bd.getLugarPorId(estacionamentoADecorrer.getLugarId());
 
         FloatingActionButton btn_Voltar = findViewById(R.id.btn_Voltar);
         Button btn_GuardarCaso = findViewById(R.id.btn_GuardarCaso);
@@ -130,7 +130,7 @@ public class NovoCaso extends AppCompatActivity {
                             String request = "{"
                                     + " \"Titulo\": \"" + titulo + "\", "
                                     + "\"Descricao\": \"" + descricao + "\", "
-                                    + "\"InspecaoId\": " + inspecaoADecorrer.getId() + ", "
+                                    + "\"InspecaoId\": " + estacionamentoADecorrer.getId() + ", "
                                     + "\"Imagem\": \"" + imagemBase64 + "\" }";
                             JsonObject body = new JsonParser().parse(request).getAsJsonObject();
                             Call<JsonObject> call = RetrofitClient.getInstance().getMyApi().criarCaso(body);
@@ -143,8 +143,8 @@ public class NovoCaso extends AppCompatActivity {
                                         caso.setId(casoJson.get("Id").getAsInt());
                                         caso.setTitulo(casoJson.get("Titulo").getAsString());
                                         caso.setDescricao(casoJson.get("Descricao").getAsString());
-                                        caso.setImagem(casoJson.get("Imagem").getAsString());
-                                        caso.setInspecaoId(casoJson.get("InspecaoId").getAsInt());
+                                        caso.setFotografia(casoJson.get("Imagem").getAsString());
+                                        caso.setEstacionamentoId(casoJson.get("EstacionamentoId").getAsInt());
                                         bd.adicionarCaso(caso);
                                         Toast.makeText(getApplicationContext(), "Caso criado com sucesso!", Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent(getApplicationContext(), InspecaoADecorrer.class);

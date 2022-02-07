@@ -3,28 +3,29 @@ package com.example.projetopdmam.Modelos;
 public class Caso {
 
     int Id;
+    int EstacionamentoId;
     String Titulo;
     String Descricao;
-    String Imagem;
-    int InspecaoId;
+    String Fotografia;
+
 
     public Caso(){
 
     }
 
-    public Caso(int id, String titulo, String descricao, String imagem, int inspecaoId) {
+    public Caso(int id, int estacionamentoId, String titulo, String descricao, String fotografia) {
         Id = id;
+        EstacionamentoId = estacionamentoId;
         Titulo = titulo;
         Descricao = descricao;
-        Imagem = imagem;
-        InspecaoId = inspecaoId;
+        Fotografia = fotografia;
     }
 
-    public Caso(String titulo, String descricao, String imagem, int inspecaoId) {
+    public Caso(int estacionamentoId, String titulo, String descricao, String fotografia) {
+        EstacionamentoId = estacionamentoId;
         Titulo = titulo;
         Descricao = descricao;
-        Imagem = imagem;
-        InspecaoId = inspecaoId;
+        Fotografia = fotografia;
     }
 
     public int getId() {
@@ -33,6 +34,14 @@ public class Caso {
 
     public void setId(int id) {
         Id = id;
+    }
+
+    public int getEstacionamentoId() {
+        return EstacionamentoId;
+    }
+
+    public void setEstacionamentoId(int estacionamentoId) {
+        EstacionamentoId = estacionamentoId;
     }
 
     public String getTitulo() {
@@ -51,19 +60,11 @@ public class Caso {
         Descricao = descricao;
     }
 
-    public String getImagem() {
-        return Imagem;
+    public String getFotografia() {
+        return Fotografia;
     }
 
-    public void setImagem(String imagem) {
-        Imagem = imagem;
-    }
-
-    public int getInspecaoId() {
-        return InspecaoId;
-    }
-
-    public void setInspecaoId(int inspecaoId) {
-        InspecaoId = inspecaoId;
+    public void setFotografia(String fotografia) {
+        Fotografia = fotografia;
     }
 }

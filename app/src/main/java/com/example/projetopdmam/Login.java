@@ -67,7 +67,7 @@ public class Login extends AppCompatActivity {
                                     Utilizador loggedInUser = new Utilizador();
                                     loggedInUser.setId(utilizador.get("Id").getAsInt());
                                     loggedInUser.setNome(utilizador.get("Nome").getAsString());
-                                    loggedInUser.setUsername(utilizador.get("Username").getAsString());
+                                    //loggedInUser.setUsername(utilizador.get("Username").getAsString());
                                     loggedInUser.setPassword(utilizador.get("Password").getAsString());
                                     loggedInUser.setEmail(utilizador.get("Email").getAsString());
                                     loggedInUser.setTelemovel(utilizador.get("Telemovel").getAsString());

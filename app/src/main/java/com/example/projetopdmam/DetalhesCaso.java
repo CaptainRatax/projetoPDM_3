@@ -51,8 +51,8 @@ public class DetalhesCaso extends AppCompatActivity {
 
         txt_Titulo.setText(caso.getTitulo());
         txt_Descricao.setText(caso.getDescricao());
-        if(!caso.getImagem().equals("")){
-            byte[] decodedByte = Base64.decode(caso.getImagem(), 0);
+        if(!caso.getFotografia().equals("")){
+            byte[] decodedByte = Base64.decode(caso.getFotografia(), 0);
             Bitmap bitmap = BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
             img_CasoDetalhes.setImageBitmap(bitmap);
         }
