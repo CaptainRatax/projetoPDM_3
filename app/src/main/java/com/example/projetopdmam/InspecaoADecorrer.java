@@ -68,7 +68,7 @@ public class InspecaoADecorrer extends AppCompatActivity {
             }
         });
 
-        if(isInternetAvailable()){
+        if(isInternetAvailable()){ /*
             Call<JsonObject> call = RetrofitClient.getInstance().getMyApi().getInspecaoAtivaPorIdInspetorIdObra(loggedInUser.getId(), inspecaoADecorrer.getObraId());
             call.enqueue(new Callback<JsonObject>() {
                 @Override
@@ -87,7 +87,7 @@ public class InspecaoADecorrer extends AppCompatActivity {
                 public void onFailure(Call<JsonObject> call, Throwable t) {
 
                 }
-            });
+            }); */
         }else{
             Toast.makeText(getApplicationContext(), "Sem conexão à internet!", Toast.LENGTH_SHORT).show();
         }
@@ -102,7 +102,7 @@ public class InspecaoADecorrer extends AppCompatActivity {
                     new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        if(isInternetAvailable()){
+                        if(isInternetAvailable()){/*
                             Call<JsonObject> call1 = RetrofitClient.getInstance().getMyApi().cancelarInspecao(inspecaoADecorrer.getId());
                             call1.enqueue(new Callback<JsonObject>() {
                                 @Override
@@ -120,7 +120,7 @@ public class InspecaoADecorrer extends AppCompatActivity {
                                 public void onFailure(Call<JsonObject> call, Throwable t) {
                                     Toast.makeText(getApplicationContext(), "Aconteceu algo errado por parte do servidor", Toast.LENGTH_LONG).show();
                                 }
-                            });
+                            }); */
                         }else{
                             Toast.makeText(getApplicationContext(), "É necessária uma conexão à internet para efetuar essa operação!", Toast.LENGTH_LONG).show();
                         }

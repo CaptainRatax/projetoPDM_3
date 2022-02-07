@@ -8,56 +8,60 @@ import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Query;
 
 public interface Api {
 
-    String BASE_URL = "https://personal-a1j7okp9.outsystemscloud.com/Renergy/rest/API/";
+    //Link da API
+    String BASE_URL = "https://alexandre-abreu36.outsystemscloud.com/CarParkingAPI/rest/CarParkingAPI/";
 
+    //Colocar ume header em todos os pedidos para mencionar que o pedido vai em JSON
     @Headers({
             "Content-type: application/json; charset=utf-8"
     })
 
-    @POST("Login")
+    @POST("login")
     Call<JsonObject> login(@Body JsonObject body);
 
-    @GET("Utilizadores/Devolver")
-    Call<JsonObject> getUtilizadorPorId(@Query("Id") int Id);
 
-    @GET("Obras/Devolver")
-    Call<JsonObject> getObraPorId(@Query("Id") int Id);
+    //@GET("Obras/Devolver")
+    //Call<JsonObject> getObraPorId(@Query("Id") int Id);
 
-    @POST("Inspecoes/Iniciar")
-    Call<JsonObject> iniciarInspecao(@Body JsonObject body);
+    @POST("entrada")
+    Call<JsonObject> entrada(@Body JsonObject body);
 
-    @POST("Inspecoes/Terminar")
-    Call<JsonObject> terminarInspecao(@Query("Id") int Id);
+    @POST("saida")
+    Call<JsonObject> saida(@Query("UtilizadorId") int UtilizadorId);
 
-    @GET("Inspecoes/Devolver")
-    Call<JsonObject> getInspecaoPorId(@Query("Id") int Id);
+    //@GET("Inspecoes/Devolver")
+    //Call<JsonObject> getInspecaoPorId(@Query("Id") int Id);
 
-    @GET("Inspecoes/DevolverAtivaPorIdInspetor")
-    Call<JsonObject> getInspecaoAtivaPorIdInspetor(@Query("Id") int IdInspetor);
+    //@GET("Inspecoes/DevolverAtivaPorIdInspetor")
+    //Call<JsonObject> getInspecaoAtivaPorIdInspetor(@Query("Id") int IdInspetor);
 
-    @GET("Inspecoes/DevolverAtivaPorIdObra")
-    Call<JsonObject> getInspecaoAtivaPorIdObra(@Query("Id") int IdObra);
+    //@GET("Inspecoes/DevolverAtivaPorIdObra")
+    //Call<JsonObject> getInspecaoAtivaPorIdObra(@Query("Id") int IdObra);
 
-    @GET("Inspecoes/DevolverAtivaPorIdInspetorObra")
-    Call<JsonObject> getInspecaoAtivaPorIdInspetorIdObra(@Query("IdInspetor") int IdInspetor, @Query("IdObra") int IdObra);
+    //@GET("Inspecoes/DevolverAtivaPorIdInspetorObra")
+    //Call<JsonObject> getInspecaoAtivaPorIdInspetorIdObra(@Query("IdInspetor") int IdInspetor, @Query("IdObra") int IdObra);
 
-    @DELETE("Inspecoes/Cancelar")
-    Call<JsonObject> cancelarInspecao(@Query("Id") int Id);
+    //@DELETE("Inspecoes/Cancelar")
+    //Call<JsonObject> cancelarInspecao(@Query("Id") int Id);
 
-    @POST("Casos/Criar")
+    @GET("casos")
+    Call<JsonObject> getCasoPorId(@Query("EstacionamentoId") int EstacionamentoId);
+
+    @POST("casos/criar")
     Call<JsonObject> criarCaso(@Body JsonObject body);
 
-    @GET("Casos/Devolver")
-    Call<JsonObject> getCasoPorId(@Query("Id") int Id);
+    @PUT("casos/editar")
+    Call<JsonObject> editarCaso(@Body JsonObject body);
 
-    @GET("Casos/DevolverPorInspecaoId")
-    Call<JsonObject> getCasosPorInspecaoId(@Query("Id") int Id);
+    //@GET("Casos/DevolverPorInspecaoId")
+    //Call<JsonObject> getCasosPorInspecaoId(@Query("Id") int Id);
 
-    @DELETE("Casos/Eliminar")
-    Call<JsonObject> eliminarCaso(@Query("Id") int Id);
+    @DELETE("casos/eliminar")
+    Call<JsonObject> eliminarCaso(@Query("EstacionamentoId") int EstacionamentoId);
 
 }

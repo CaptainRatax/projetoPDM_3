@@ -94,6 +94,7 @@ public class QRCodeReader extends AppCompatActivity implements ZXingScannerView.
                 if(id > 0){
                     if(isInternetAvailable()){
                         //Chamada à API para verificar se o id da obra existe
+                        /*
                         Call<JsonObject> call = RetrofitClient.getInstance().getMyApi().getObraPorId(id);
                         call.enqueue(new Callback<JsonObject>() {
                             @Override
@@ -198,7 +199,7 @@ public class QRCodeReader extends AppCompatActivity implements ZXingScannerView.
                                 Intent intent = new Intent(getApplicationContext(), PaginaInicial.class);
                                 startActivity(intent);
                             }
-                        });
+                        }); */
                     }else{
                         //Não existe conexão à internet
                         Toast.makeText(QRCodeReader.this, "É necessário uma conexão à internet...", Toast.LENGTH_LONG).show();

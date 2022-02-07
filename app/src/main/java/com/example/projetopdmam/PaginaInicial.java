@@ -50,7 +50,7 @@ public class PaginaInicial extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(), InspecaoADecorrer.class);
             startActivity(intent);
         }else{
-            if(isInternetAvailable()){
+            if(isInternetAvailable()){ /*
                 Call<JsonObject> call = RetrofitClient.getInstance().getMyApi().getInspecaoAtivaPorIdInspetor(loggedInUser.getId());
                 call.enqueue(new Callback<JsonObject>() {
                     @Override
@@ -108,7 +108,7 @@ public class PaginaInicial extends AppCompatActivity {
                     public void onFailure(Call<JsonObject> call, Throwable t) {
 
                     }
-                });
+                }); */
             }
         }
 
