@@ -45,38 +45,39 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.login_main);
 
         Button btn_Login = findViewById(R.id.btn_Login);
-        EditText edt_Username = findViewById(R.id.edt_Username);
+        EditText edt_Email = findViewById(R.id.edt_Email);
         EditText edt_Password = findViewById(R.id.edt_Password);
 
         btn_Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String username = edt_Username.getText().toString();
+                String email = edt_Email.getText().toString();
                 String password = edt_Password.getText().toString();
-                password = sha512(password);
                 if(isInternetAvailable()){
-                    String request = "{ \"Username\":  \"" + username + "\", \"Password\": \"" + password + "\"}";
+                    String request = "{ \"Email\":  \"" + email + "\", \"Password\": \"" + password + "\"}";
                     JsonObject body = new JsonParser().parse(request).getAsJsonObject();
                     Call<JsonObject> call = RetrofitClient.getInstance().getMyApi().login(body);
                     call.enqueue(new Callback<JsonObject>() {
                         @Override
                         public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                             if(response.body() != null){
-                                if(response.body().get("IsAuthorized").getAsBoolean()){
+                                if(response.body().get("Sucesso").getAsBoolean()){
                                     JsonObject utilizador = response.body().get("Utilizador").getAsJsonObject();
                                     Utilizador loggedInUser = new Utilizador();
                                     loggedInUser.setId(utilizador.get("Id").getAsInt());
                                     loggedInUser.setNome(utilizador.get("Nome").getAsString());
-                                    //loggedInUser.setUsername(utilizador.get("Username").getAsString());
-                                    loggedInUser.setPassword(utilizador.get("Password").getAsString());
+                                    loggedInUser.setMorada(utilizador.get("Morada").getAsString());
+                                    loggedInUser.setCodigoPostal(utilizador.get("CodigoPostal").getAsString());
+                                    loggedInUser.setTelemovel(utilizador.get("NumeroTelemovel").getAsString());
+                                    loggedInUser.setNIF(utilizador.get("NIF").getAsString());
                                     loggedInUser.setEmail(utilizador.get("Email").getAsString());
-                                    loggedInUser.setTelemovel(utilizador.get("Telemovel").getAsString());
-                                    loggedInUser.setActive(utilizador.get("IsActive").getAsBoolean());
+                                    loggedInUser.setPassword(utilizador.get("Password").getAsString());
+                                    loggedInUser.setActive(true);
                                     bd.loginLocal(loggedInUser);
                                     Intent intent = new Intent(getApplicationContext(),PaginaInicial.class);
                                     startActivity(intent);
                                 }else{
-                                    Toast.makeText(Login.this, response.body().get("Message").getAsString(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(Login.this, response.body().get("Mensagem").getAsString(), Toast.LENGTH_SHORT).show();
                                 }
                             }
                         }
@@ -92,29 +93,11 @@ public class Login extends AppCompatActivity {
 
     }
 
-    /*Funções auxiliares*/
-
-    private static String sha512(String text) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-512");
-            byte[] digest = md.digest(text.getBytes());
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < digest.length; i++) {
-                sb.append(Integer.toString((digest[i] & 0xff) + 0x100, 16).substring(1));
-            }
-            return sb.toString();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        return "";
-    }
-
     private boolean isInternetAvailable(){
         boolean connected = false;
         ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
         if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
                 connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
-            //we are connected to a network
             connected = true;
         }
         else

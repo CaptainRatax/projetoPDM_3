@@ -13,4 +13,7 @@
     <string name="iniciar">Iniciar</string>
     <string name="id_inspe_o">Id Inspeção</string>
     <string name="qrCoderResult">...</string>
+    <string name="c_parking">C-PARKING</string>
+    <string name="email">Email</string>
+    <string name="quot_c_parking_logo_quot">\"C-Parking logo\"</string>
 </resources>

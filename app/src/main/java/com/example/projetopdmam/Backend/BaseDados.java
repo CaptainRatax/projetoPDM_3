@@ -110,7 +110,7 @@ public class BaseDados extends SQLiteOpenHelper {
         values.put(UTILIZADORES_ISACTIVE, utilizador.isActive() ? 1 : 0);
 
         bd.insert(TABELA_UTILIZADORES, null, values);
-        bd.close();
+        //bd.close();
     }
 
     //Eliminar Utilizador
@@ -121,7 +121,7 @@ public class BaseDados extends SQLiteOpenHelper {
 
         bd.delete(TABELA_UTILIZADORES, UTILIZADORES_ID + " = ?", new String[] {String.valueOf(Id)});
 
-        bd.close();
+        //bd.close();
     }
 
     //Get do utilizador
@@ -144,7 +144,7 @@ public class BaseDados extends SQLiteOpenHelper {
             utilizador.setActive(Integer.parseInt(cursor.getString(7)) == 1);
         }
 
-        bd.close();
+        //bd.close();
 
         return utilizador;
     }
@@ -165,7 +165,7 @@ public class BaseDados extends SQLiteOpenHelper {
         bd.update(TABELA_UTILIZADORES, values, UTILIZADORES_ID + " = ?",
                 new String[] {String.valueOf(utilizador.getId())});
 
-        bd.close();
+        //bd.close();
     }
 
     //Get de todos os utilizadores
@@ -193,7 +193,7 @@ public class BaseDados extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
 
-        bd.close();
+        //bd.close();
 
         return listaUtilizadores;
     }
@@ -213,7 +213,7 @@ public class BaseDados extends SQLiteOpenHelper {
         values.put(LUGARES_ISACTIVE, lugar.isActive() ? 1 : 0);
 
         bd.insert(TABELA_LUGARES, null, values);
-        bd.close();
+        //bd.close();
     }
 
     //Eliminar Lugar
@@ -222,7 +222,7 @@ public class BaseDados extends SQLiteOpenHelper {
 
         bd.delete(TABELA_LUGARES, LUGARES_ID + " = ?", new String[] {String.valueOf(Id)});
 
-        bd.close();
+        //bd.close();
     }
 
     //Get lugar por Id
@@ -257,7 +257,7 @@ public class BaseDados extends SQLiteOpenHelper {
         bd.update(TABELA_LUGARES, values, LUGARES_ID + " = ?",
                 new String[] {String.valueOf(lugar.getId())});
 
-        bd.close();
+        //bd.close();
     }
 
     //Get de todos os lugares
@@ -280,7 +280,7 @@ public class BaseDados extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
 
-        bd.close();
+        //bd.close();
 
         return listaLugares;
     }
@@ -303,7 +303,7 @@ public class BaseDados extends SQLiteOpenHelper {
         values.put(ESTACIONAMENTOS_ISACTIVE, estacionamento.isActive() ? 1 : 0);
 
         bd.insert(TABELA_ESTACIONAMENTOS, null, values);
-        bd.close();
+        //bd.close();
     }
 
     //Eliminar estacionamento
@@ -315,7 +315,7 @@ public class BaseDados extends SQLiteOpenHelper {
 
         bd.delete(TABELA_ESTACIONAMENTOS, ESTACIONAMENTOS_ID + " = ?", new String[] {String.valueOf(Id)});
 
-        bd.close();
+        //bd.close();
 
         Lugar lugar = getLugarPorId(estacionamentoADecorrer.getLugarId());
 
@@ -346,7 +346,7 @@ public class BaseDados extends SQLiteOpenHelper {
             estacionamento.setActive(Integer.parseInt(cursor.getString(6)) == 1);
         }
 
-        bd.close();
+        //bd.close();
 
         return estacionamento;
     }
@@ -366,7 +366,7 @@ public class BaseDados extends SQLiteOpenHelper {
         bd.update(TABELA_ESTACIONAMENTOS, values, ESTACIONAMENTOS_ID + " = ?",
                 new String[] {String.valueOf(estacionamento.getId())});
 
-        bd.close();
+        //bd.close();
     }
 
     //Get de todos os estacionamentos
@@ -393,7 +393,7 @@ public class BaseDados extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
 
-        bd.close();
+        //bd.close();
 
         return listaEstacionamentos;
     }
@@ -414,7 +414,7 @@ public class BaseDados extends SQLiteOpenHelper {
         values.put(CASOS_FOTOGRAFIA, caso.getFotografia());
 
         bd.insert(TABELA_CASOS, null, values);
-        bd.close();
+        //bd.close();
     }
 
     //Eliminar Caso
@@ -423,7 +423,7 @@ public class BaseDados extends SQLiteOpenHelper {
 
         bd.delete(TABELA_CASOS, CASOS_ID + " = ?", new String[] {String.valueOf(Id)});
 
-        bd.close();
+        //bd.close();
     }
 
     //ELIMINAR TODOS OS CASOS
@@ -434,7 +434,7 @@ public class BaseDados extends SQLiteOpenHelper {
 
         bd.execSQL(query);
 
-        bd.close();
+        //bd.close();
     }
 
     //Get Caso por Id
@@ -466,7 +466,7 @@ public class BaseDados extends SQLiteOpenHelper {
         bd.update(TABELA_CASOS, values, CASOS_ID + " = ?",
                 new String[] {String.valueOf(caso.getId())});
 
-        bd.close();
+        //bd.close();
     }
 
     //Get de todos os Casos
@@ -490,7 +490,7 @@ public class BaseDados extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
 
-        bd.close();
+        //bd.close();
 
         return listaCasos;
     }
@@ -516,7 +516,7 @@ public class BaseDados extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
 
-        bd.close();
+        //bd.close();
 
         return listaCasos;
     }
