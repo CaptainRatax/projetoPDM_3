@@ -37,8 +37,8 @@ public interface Api {
     //@GET("Inspecoes/Devolver")
     //Call<JsonObject> getInspecaoPorId(@Query("Id") int Id);
 
-    //@GET("Inspecoes/DevolverAtivaPorIdInspetor")
-    //Call<JsonObject> getInspecaoAtivaPorIdInspetor(@Query("Id") int IdInspetor);
+    @GET("estacionamentos")
+    Call<JsonObject> getEstacionamentoAtivoPorIdUtilizador(@Query("UtilizadorId") int UtilizadorId);
 
     //@GET("Inspecoes/DevolverAtivaPorIdObra")
     //Call<JsonObject> getInspecaoAtivaPorIdObra(@Query("Id") int IdObra);

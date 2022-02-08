@@ -15,17 +15,23 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.projetopdmam.Backend.BaseDados;
+import com.example.projetopdmam.Backend.RetrofitClient;
 import com.example.projetopdmam.Modelos.Estacionamento;
 import com.example.projetopdmam.Modelos.Lugar;
 import com.example.projetopdmam.Modelos.Utilizador;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.JsonObject;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PaginaInicial extends AppCompatActivity {
 
@@ -44,54 +50,48 @@ public class PaginaInicial extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(), InspecaoADecorrer.class);
             startActivity(intent);
         }else{
-            if(isInternetAvailable()){ /*
-                Call<JsonObject> call = RetrofitClient.getInstance().getMyApi().getInspecaoAtivaPorIdInspetor(loggedInUser.getId());
+            if(isInternetAvailable()){
+                Call<JsonObject> call = RetrofitClient.getInstance().getMyApi().getEstacionamentoAtivoPorIdUtilizador(loggedInUser.getId());
                 call.enqueue(new Callback<JsonObject>() {
                     @Override
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                        if(response.body().get("Success").getAsBoolean()){
-                            JsonObject obraJson = response.body().get("Obra").getAsJsonObject();
-                            //Cria um objeto do tipo Obra usando o Json que recebeu da API
-                            Obra obra = new Obra();
-                            obra.setId(obraJson.get("Id").getAsInt());
-                            obra.setNome(obraJson.get("Nome").getAsString());
-                            obra.setDescricao(obraJson.get("Descricao").getAsString());
-                            obra.setMorada(obraJson.get("Morada").getAsString());
-                            obra.setCodigoPostal(obraJson.get("CodigoPostal").getAsString());
-                            obra.setLocalidade(obraJson.get("Localidade").getAsString());
-                            obra.setPais(obraJson.get("Pais").getAsString());
-                            obra.setDataInicio(obraJson.get("DataInicio").getAsString());
-                            obra.setResponsavel(obraJson.get("Responsavel").getAsString());
-                            obra.setActive(obraJson.get("IsActive").getAsBoolean());
+                        if(response.body().get("Sucesso").getAsBoolean()){
+                            JsonObject lugarJson = response.body().get("Lugar").getAsJsonObject();
+                            //Cria um objeto do tipo Lugar usando o Json que recebeu da API
+                            Lugar lugar = new Lugar();
+                            lugar.setId(lugarJson.get("Id").getAsInt());
+                            lugar.setCodigo(lugarJson.get("Codigo").getAsString());
+                            lugar.setAndar(lugarJson.get("Andar").getAsString());
+                            lugar.setActive(true);
 
-                            JsonObject inspecao = response.body().get("Inspecao").getAsJsonObject();
-                            //Cria um objeto do tipo Inspecao usando o Json que recebeu da API
-                            inspecaoADecorrer.setId(inspecao.get("Id").getAsInt());
-                            inspecaoADecorrer.setDataInicio(inspecao.get("DataInicio").getAsString());
-                            inspecaoADecorrer.setDataFim(inspecao.get("DataFim").getAsString());
-                            inspecaoADecorrer.setFinished(inspecao.get("IsFinished").getAsBoolean());
-                            inspecaoADecorrer.setInspetorId(inspecao.get("InspectorId").getAsInt());
-                            inspecaoADecorrer.setObraId(inspecao.get("ObraId").getAsInt());
-                            inspecaoADecorrer.setActive(inspecao.get("IsActive").getAsBoolean());
+                            JsonObject estacionamento = response.body().get("Inspecao").getAsJsonObject();
+                            //Cria um objeto do tipo Estacionamento usando o Json que recebeu da API
+                            estacionamentoADecorrer.setId(estacionamento.get("Id").getAsInt());
+                            estacionamentoADecorrer.setUtilizadorId(estacionamento.get("UtilizadorId").getAsInt());
+                            estacionamentoADecorrer.setLugarId(estacionamento.get("LugarId").getAsInt());
+                            estacionamentoADecorrer.setDataEntrada(estacionamento.get("DataEntrada").getAsString());
+                            estacionamentoADecorrer.setDataSaida(estacionamento.get("DataSaida").getAsString());
+                            estacionamentoADecorrer.setEstacionamentoLivre(estacionamento.get("EstacionamentoLivre").getAsBoolean());
+                            estacionamentoADecorrer.setActive(true);
 
-                            if (bd.getInspecaoADecorrer().isActive()) { //Verifica se existe alguma inspeção a decorrer localmente
-                                //Existe uma inspeção a decorrer localmente
-                                if (bd.getInspecaoADecorrer() != inspecaoADecorrer) { //Verifica se a inspeção que está a decorrer localmente é diferente da recebida
-                                    bd.acabarInspecaoLocal(); //Se for acaba a inspeção local
-                                    bd.comecarInspecaoLocal(inspecaoADecorrer); //e começa uma nova com os dados da inspeção recebida
+                            if (bd.getEstacionamentoADecorrer().isActive()) { //Verifica se existe algum estacionamento a decorrer localmente
+                                //Existe um estacionamento a decorrer localmente
+                                if (bd.getEstacionamentoADecorrer() != estacionamentoADecorrer) { //Verifica se o estacionamento que está a decorrer localmente é diferente do recebido
+                                    bd.acabarEstacionamentoLocal(); //Se for acaba o estacionamento a decorrer localmente
+                                    bd.comecarEstacionamentoLocal(estacionamentoADecorrer); //e começa um novo com os dados do estacionamento recebidos da API
                                 }
                             } else {
-                                //Não existe nenhuma inspeção a decorrer localmente
-                                bd.comecarInspecaoLocal(inspecaoADecorrer); //Começa a inspeção localmente
+                                //Não existe nenhum estacionamento a decorrer localmente
+                                bd.comecarEstacionamentoLocal(estacionamentoADecorrer); //Começa o estacionamento localmente
                             }
-                            if (bd.getObraPorId(obra.getId()).isActive()) {//Verifica se a obra já existe localmente
-                                //A obra existe localmente
-                                if (bd.getObraPorId(obra.getId()) != obra) {//Verifica se a obra que existe localmente é diferente da recebida
-                                    bd.editarObra(obra); //Se for altera a obra local e coloca os dados da obra recebida
+                            if (bd.getLugarPorId(lugar.getId()).isActive()) {//Verifica se o lugar já existe localmente
+                                //O lugar existe localmente
+                                if (bd.getLugarPorId(lugar.getId()) != lugar) {//Verifica se o lugar que existe localmente é diferente do recebido da API
+                                    bd.editarLugar(lugar); //Se for altera o lugar local e coloca os dados do lugar recebido da API
                                 }
                             } else {
-                                //A obra não existe localmente
-                                bd.adicionarObra(obra); //Cria a obra localmente
+                                //O lugar não existe localmente
+                                bd.adicionarLugar(lugar); //Cria o lugar localmente
                             }
                             Intent intent = new Intent(getApplicationContext(), InspecaoADecorrer.class);
                             startActivity(intent);
@@ -102,7 +102,7 @@ public class PaginaInicial extends AppCompatActivity {
                     public void onFailure(Call<JsonObject> call, Throwable t) {
 
                     }
-                }); */
+                });
             }
         }
 
@@ -115,7 +115,6 @@ public class PaginaInicial extends AppCompatActivity {
 
         FloatingActionButton btn_Logout = findViewById(R.id.btn_Logout);
         Button btn_QRCodeScanner = findViewById(R.id.btn_QRCodeScanner);
-        //Button btn_IniciarComId = findViewById(R.id.btn_IniciarComId);
 
         btn_QRCodeScanner.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,165 +147,7 @@ public class PaginaInicial extends AppCompatActivity {
                 }, null);
             }
         });
-
-        /*btn_IniciarComId.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                EditText edt_IdObra = findViewById(R.id.edt_IdObra);
-                Obra obra = new Obra();
-                if(isNumeric(edt_IdObra.getText().toString())){
-                    int Id = Integer.parseInt(edt_IdObra.getText().toString());
-                    if(Id > 0){
-                        if(isInternetAvailable()){
-                            //Chamada à API para verificar se o id da obra existe
-                            Call<JsonObject> call = RetrofitClient.getInstance().getMyApi().getObraPorId(Id);
-                            call.enqueue(new Callback<JsonObject>() {
-                                @Override
-                                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                                    if(response.body().get("Success").getAsBoolean()){//Verifica se o pedido foi bem sucedido, ou seja se existe alguma obra com aquele id
-                                        //Existe uma obra com aquele id
-
-                                        //Guarda a obra numa variável local
-                                        JsonObject obraJson = response.body().get("Obra").getAsJsonObject();
-                                        obra.setId(obraJson.get("Id").getAsInt());
-                                        obra.setNome(obraJson.get("Nome").getAsString());
-                                        obra.setDescricao(obraJson.get("Descricao").getAsString());
-                                        obra.setMorada(obraJson.get("Morada").getAsString());
-                                        obra.setCodigoPostal(obraJson.get("CodigoPostal").getAsString());
-                                        obra.setLocalidade(obraJson.get("Localidade").getAsString());
-                                        obra.setPais(obraJson.get("Pais").getAsString());
-                                        obra.setDataInicio(obraJson.get("DataInicio").getAsString());
-                                        obra.setResponsavel(obraJson.get("Responsavel").getAsString());
-                                        obra.setActive(obraJson.get("IsActive").getAsBoolean());
-
-                                        //Chamada à API para ver se a obra já está a ser inspecionada no momento
-                                        Call<JsonObject> call1 = RetrofitClient.getInstance().getMyApi().getInspecaoAtivaPorIdObra(Id);
-                                        call1.enqueue(new Callback<JsonObject>() {
-                                            @Override
-                                            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                                                if(response.body().get("Success").getAsBoolean()){//Verifica se o pedido foi bem sucedido, ou seja se a obra está a ser inspecionada no momento
-                                                    //A obra está a ser inspecionada no momento
-                                                    if(response.body().get("Inspecao").getAsJsonObject().get("InspectorId").getAsInt() == loggedInUser.getId()){
-                                                        //Se o id do inspetor que está a inspecionar essa obra for igual ao do loggedInUser
-                                                        comecarInspecao(obra, response.body().get("Inspecao").getAsJsonObject()); //Usa uma função auxiliar para começar a inspeção localmente (a função está mais em baixo)
-                                                    }else{
-                                                        //A obra está a ser inspecionada por outra pessoa
-                                                        Toast.makeText(getApplicationContext(), "Essa obra já está a ser inspecionada por outro inspetor", Toast.LENGTH_LONG).show();
-                                                        edt_IdObra.setText("");
-                                                    }
-                                                }else{
-                                                    //A obra não está a ser inspecionada no momento
-                                                    showMessageSimNao("Tem a certeza que quer iniciar a inspeção à obra \"" + obra.getNome() + "\" responsável por " + obra.getResponsavel() + "?",
-                                                            new DialogInterface.OnClickListener() { //Listener do click no botão sim
-                                                                @Override
-                                                                public void onClick(DialogInterface dialogInterface, int i) {
-                                                                    //Utilizador clicou no botão sim
-
-                                                                    //Chamada à API para começar a inspeção no servidor
-                                                                    String request = "{ \"InspectorId\":  \"" + loggedInUser.getId() + "\", \"ObraId\": \"" + obra.getId() + "\"}";
-                                                                    JsonObject bodyJson = new JsonParser().parse(request).getAsJsonObject();
-                                                                    Call<JsonObject> call2 = RetrofitClient.getInstance().getMyApi().iniciarInspecao(bodyJson);
-                                                                    call2.enqueue(new Callback<JsonObject>() {
-                                                                        @Override
-                                                                        public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                                                                            if(response.body().get("Success").getAsBoolean()){
-                                                                                //O server aceitou a inspeção com sucesso
-                                                                                comecarInspecao(obra, response.body().get("Inspecao").getAsJsonObject()); //Usa uma função auxiliar para começar a inspeção localmente (a função está mais em baixo)
-                                                                            }else{
-                                                                                //O server não começou a inspeção por algum motivo
-                                                                                Toast.makeText(getApplicationContext(), response.body().get("Mensagem").getAsString(), Toast.LENGTH_SHORT).show();
-                                                                                edt_IdObra.setText("");
-                                                                            }
-                                                                        }
-                                                                        @Override
-                                                                        public void onFailure(Call<JsonObject> call, Throwable t) {
-                                                                            //Aconteceu alguma coisa de errado por parte do servidor
-                                                                            Toast.makeText(getApplicationContext(), "Aconteceu algo de errado ao tentar iniciar a inspeção", Toast.LENGTH_SHORT).show();
-                                                                            edt_IdObra.setText("");
-                                                                        }
-                                                                    });
-                                                                }
-                                                            },
-                                                            new DialogInterface.OnClickListener() { //Listener do click no botão não
-                                                                @Override
-                                                                public void onClick(DialogInterface dialogInterface, int i) {
-                                                                    //Utilizador clicou no botão não
-                                                                    edt_IdObra.setText("");
-                                                                }
-                                                            });
-                                                }
-                                            }
-                                            @Override
-                                            public void onFailure(Call<JsonObject> call, Throwable t) {
-                                                //Aconteceu alguma coisa de errado por parte do servidor
-                                                Toast.makeText(getApplicationContext(), "Aconteceu algo de errado ao tentar iniciar a inspeção", Toast.LENGTH_SHORT).show();
-                                                edt_IdObra.setText("");
-                                            }
-                                        });
-                                    }else{
-                                        //Não existe nenhuma obra com o id fornecido
-                                        Toast.makeText(getApplicationContext(), response.body().get("Mensagem").getAsString(), Toast.LENGTH_SHORT).show();
-                                        edt_IdObra.setText("");
-                                    }
-                                }
-                                @Override
-                                public void onFailure(Call<JsonObject> call, Throwable t) {
-                                    //Aconteceu alguma coisa de errado por parte do servidor
-                                    Toast.makeText(getApplicationContext(), "Aconteceu algo de errado ao tentar iniciar a inspeção", Toast.LENGTH_SHORT).show();
-                                    edt_IdObra.setText("");
-                                }
-                            });
-                        }else{
-                            Toast.makeText(getApplicationContext(), "É necessária uma conexão à internet para efetuar essa operação!", Toast.LENGTH_LONG).show();
-                        }
-                    }else{
-                        Toast.makeText(getApplicationContext(), "O id é inválido!", Toast.LENGTH_SHORT).show();
-                        edt_IdObra.setText("");
-                    }
-                }else{
-                    Toast.makeText(getApplicationContext(), "O id é inválido!", Toast.LENGTH_SHORT).show();
-                    edt_IdObra.setText("");
-                }
-            }
-        });*/
-
     }
-
-    //Função auxiliar usada para reciclar código usado duas vezes para começar a inspeção localmente
-    private void comecarInspecao(Lugar lugar, JsonObject inspecao){
-        //Cria um objeto do tipo Inspecao usando o Json que recebeu da API
-        Estacionamento estacionamentoADecorrer = new Estacionamento();
-        estacionamentoADecorrer.setId(inspecao.get("Id").getAsInt());
-        estacionamentoADecorrer.setDataEntrada(inspecao.get("DataEntrada").getAsString());
-        estacionamentoADecorrer.setDataSaida(inspecao.get("DataSaida").getAsString());
-        estacionamentoADecorrer.setEstacionamentoLivre(inspecao.get("EstacionamentoLivre").getAsBoolean());
-        estacionamentoADecorrer.setUtilizadorId(inspecao.get("UtilizadorId").getAsInt());
-        estacionamentoADecorrer.setLugarId(inspecao.get("LugarId").getAsInt());
-        estacionamentoADecorrer.setActive(inspecao.get("IsActive").getAsBoolean());
-        if (bd.getEstacionamentoADecorrer().isActive()) { //Verifica se existe alguma inspeção a decorrer localmente
-            //Existe uma inspeção a decorrer localmente
-            if (bd.getEstacionamentoADecorrer() != estacionamentoADecorrer) { //Verifica se a inspeção que está a decorrer localmente é diferente da recebida
-                bd.acabarEstacionamentoLocal(); //Se for acaba a inspeção local
-                bd.comecarEstacionamentoLocal(estacionamentoADecorrer); //e começa uma nova com os dados da inspeção recebida
-            }
-        } else {
-            //Não existe nenhuma inspeção a decorrer localmente
-            bd.comecarEstacionamentoLocal(estacionamentoADecorrer); //Começa a inspeção localmente
-        }
-        if (bd.getLugarPorId(lugar.getId()).isActive()) {//Verifica se a obra já existe localmente
-            //A obra existe localmente
-            if (bd.getLugarPorId(lugar.getId()) != lugar) {//Verifica se a obra que existe localmente é diferente da recebida
-                bd.editarLugar(lugar); //Se for altera a obra local e coloca os dados da obra recebida
-            }
-        } else {
-            //A obra não existe localmente
-            bd.adicionarLugar(lugar); //Cria a obra localmente
-        }
-
-        Intent intent = new Intent(getApplicationContext(), InspecaoADecorrer.class);
-        startActivity(intent);
-    }
-
 
     //Funções auxiliares
 
@@ -384,17 +225,4 @@ public class PaginaInicial extends AppCompatActivity {
                 break;
         }
     }
-
-    public static boolean isNumeric(String strNum) {
-        if (strNum == null) {
-            return false;
-        }
-        try {
-            int d = Integer.parseInt(strNum);
-        } catch (Exception e) {
-            return false;
-        }
-        return true;
-    }
-
 }
