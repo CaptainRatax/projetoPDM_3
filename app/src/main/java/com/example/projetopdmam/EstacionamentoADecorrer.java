@@ -11,8 +11,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.projetopdmam.Backend.BaseDados;
@@ -24,13 +22,11 @@ import com.example.projetopdmam.Modelos.Utilizador;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.JsonObject;
 
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class InspecaoADecorrer extends AppCompatActivity {
+public class EstacionamentoADecorrer extends AppCompatActivity {
 
     BaseDados bd = new BaseDados(this);
 
@@ -43,7 +39,7 @@ public class InspecaoADecorrer extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        setContentView(R.layout.activity_inspecao_adecorrer);
+        setContentView(R.layout.activity_estacionamento_adecorrer);
 
         loggedInUser = bd.getLoggedInUser();
         estacionamentoADecorrer = bd.getEstacionamentoADecorrer();
@@ -139,7 +135,7 @@ public class InspecaoADecorrer extends AppCompatActivity {
     }
 
     private void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener, DialogInterface.OnClickListener cancelListener) {
-        new AlertDialog.Builder(InspecaoADecorrer.this)
+        new AlertDialog.Builder(EstacionamentoADecorrer.this)
                 .setMessage(message)
                 .setPositiveButton("Sim", okListener)
                 .setNegativeButton("Não", cancelListener)

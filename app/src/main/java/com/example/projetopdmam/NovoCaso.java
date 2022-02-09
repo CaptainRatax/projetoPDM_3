@@ -69,7 +69,7 @@ public class NovoCaso extends AppCompatActivity {
         btn_Voltar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), InspecaoADecorrer.class);
+                Intent intent = new Intent(getApplicationContext(), EstacionamentoADecorrer.class);
                 startActivity(intent);
             }
         });
@@ -147,7 +147,7 @@ public class NovoCaso extends AppCompatActivity {
                                         caso.setEstacionamentoId(casoJson.get("EstacionamentoId").getAsInt());
                                         bd.adicionarCaso(caso);
                                         Toast.makeText(getApplicationContext(), "Caso criado com sucesso!", Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(getApplicationContext(), InspecaoADecorrer.class);
+                                        Intent intent = new Intent(getApplicationContext(), EstacionamentoADecorrer.class);
                                         startActivity(intent);
                                     }else{
                                         Toast.makeText(getApplicationContext(), response.body().get("Mensagem").getAsString(), Toast.LENGTH_LONG).show();

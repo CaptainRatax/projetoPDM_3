@@ -15,7 +15,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -48,7 +47,7 @@ public class PaginaInicial extends AppCompatActivity {
         Estacionamento estacionamentoADecorrer = bd.getEstacionamentoADecorrer();
 
         if(estacionamentoADecorrer.isActive()){
-            Intent intent = new Intent(getApplicationContext(), InspecaoADecorrer.class);
+            Intent intent = new Intent(getApplicationContext(), EstacionamentoADecorrer.class);
             startActivity(intent);
         }else{
             if(isInternetAvailable()){
@@ -94,7 +93,7 @@ public class PaginaInicial extends AppCompatActivity {
                                 //O lugar não existe localmente
                                 bd.adicionarLugar(lugar); //Cria o lugar localmente
                             }
-                            Intent intent = new Intent(getApplicationContext(), InspecaoADecorrer.class);
+                            Intent intent = new Intent(getApplicationContext(), EstacionamentoADecorrer.class);
                             startActivity(intent);
                         }
                     }

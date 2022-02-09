@@ -25,8 +25,8 @@ public interface Api {
     Call<JsonObject> login(@Body JsonObject body);
 
 
-    //@GET("Obras/Devolver")
-    //Call<JsonObject> getObraPorId(@Query("Id") int Id);
+    @GET("lugares")
+    Call<JsonObject> getLugarPorCodigo(@Query("Codigo") String Codigo);
 
     @POST("entrada")
     Call<JsonObject> entrada(@Body JsonObject body);
@@ -40,8 +40,8 @@ public interface Api {
     @GET("estacionamentos")
     Call<JsonObject> getEstacionamentoAtivoPorIdUtilizador(@Query("UtilizadorId") int UtilizadorId);
 
-    //@GET("Inspecoes/DevolverAtivaPorIdObra")
-    //Call<JsonObject> getInspecaoAtivaPorIdObra(@Query("Id") int IdObra);
+    @GET("estacionamentos/lugarid")
+    Call<JsonObject> getEstacionamentoAtivoPorIdLugar(@Query("LugarId") int LugarId);
 
     @GET("estacionamentos/utilizadorlugarid")
     Call<JsonObject> getEstacionamentoAtivoPorIdUtilizadorIdLugar(@Query("UtilizadorId") int IdUtilizador, @Query("LugarId") int IdLugar);

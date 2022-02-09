@@ -60,7 +60,7 @@ public class DetalhesCaso extends AppCompatActivity {
         btn_VoltarDetalhesCaso.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), InspecaoADecorrer.class);
+                Intent intent = new Intent(getApplicationContext(), EstacionamentoADecorrer.class);
                 startActivity(intent);
             }
         });
@@ -76,7 +76,7 @@ public class DetalhesCaso extends AppCompatActivity {
                             if(response.body().get("Success").getAsBoolean()){
                                 bd.eliminarCaso(caso.getId());
                                 Toast.makeText(getApplicationContext(), "Caso eliminado com sucesso!", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(getApplicationContext(), InspecaoADecorrer.class);
+                                Intent intent = new Intent(getApplicationContext(), EstacionamentoADecorrer.class);
                                 startActivity(intent);
                             }else{
                                 Toast.makeText(getApplicationContext(), response.body().get("Mensagem").getAsString(), Toast.LENGTH_LONG).show();

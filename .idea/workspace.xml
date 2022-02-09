@@ -22,16 +22,14 @@
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/Backend/Api.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/Backend/Api.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/Backend/BaseDados.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/Backend/BaseDados.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/InspecaoADecorrer.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/InspecaoADecorrer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/ListAdapter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/DetalhesCaso.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/DetalhesCaso.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/InspecaoADecorrer.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/EstacionamentoADecorrer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/NovoCaso.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/NovoCaso.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/PaginaInicial.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/PaginaInicial.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/QRCodeReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/QRCodeReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_inspecao_adecorrer.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_inspecao_adecorrer.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_pagina_inicial.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_pagina_inicial.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/list_item.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_inspecao_adecorrer.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_estacionamento_adecorrer.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

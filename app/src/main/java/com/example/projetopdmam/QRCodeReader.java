@@ -15,10 +15,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.projetopdmam.Backend.BaseDados;
+import com.example.projetopdmam.Backend.RetrofitClient;
 import com.example.projetopdmam.Modelos.Estacionamento;
 import com.example.projetopdmam.Modelos.Lugar;
 import com.example.projetopdmam.Modelos.Utilizador;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.zxing.Result;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
@@ -28,6 +30,9 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class QRCodeReader extends AppCompatActivity implements ZXingScannerView.ResultHandler {
 
@@ -83,69 +88,60 @@ public class QRCodeReader extends AppCompatActivity implements ZXingScannerView.
         //Aqui é recebido o resultado do código QR
         try {
             txtResult.setText(rawResult.getText()); //Altera o texto na parte de baixo do ecrã para o que foi lido no QR Code
-            if(isNumeric(rawResult.getText())){
-                int id = Integer.parseInt(rawResult.getText());
                 Lugar lugar = new Lugar();
-                if(id > 0){
                     if(isInternetAvailable()){
-                        //Chamada à API para verificar se o id da obra existe
-                        /*
-                        Call<JsonObject> call = RetrofitClient.getInstance().getMyApi().getObraPorId(id);
+                        //Chamada à API para verificar se o id do lugar existe
+
+                        Call<JsonObject> call = RetrofitClient.getInstance().getMyApi().getLugarPorCodigo(rawResult.getText());
                         call.enqueue(new Callback<JsonObject>() {
                             @Override
                             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                                if(response.body().get("Success").getAsBoolean()){//Verifica se o pedido foi bem sucedido, ou seja se existe alguma obra com aquele id
-                                    //Existe uma obra com aquele id
+                                if(response.body().get("Sucesso").getAsBoolean()){//Verifica se o pedido foi bem sucedido, ou seja se existe algum lugar com aquele codigo
+                                    //Existe um lugar com aquele codigo
 
-                                    //Guarda a obra numa variável local
-                                    JsonObject obraJson = response.body().get("Obra").getAsJsonObject();
-                                    obra.setId(obraJson.get("Id").getAsInt());
-                                    obra.setNome(obraJson.get("Nome").getAsString());
-                                    obra.setDescricao(obraJson.get("Descricao").getAsString());
-                                    obra.setMorada(obraJson.get("Morada").getAsString());
-                                    obra.setCodigoPostal(obraJson.get("CodigoPostal").getAsString());
-                                    obra.setLocalidade(obraJson.get("Localidade").getAsString());
-                                    obra.setPais(obraJson.get("Pais").getAsString());
-                                    obra.setDataInicio(obraJson.get("DataInicio").getAsString());
-                                    obra.setResponsavel(obraJson.get("Responsavel").getAsString());
-                                    obra.setActive(obraJson.get("IsActive").getAsBoolean());
+                                    //Guarda o lugar numa variável local
+                                    JsonObject lugarJson = response.body().get("Lugar").getAsJsonObject();
+                                    lugar.setId(lugarJson.get("Id").getAsInt());
+                                    lugar.setCodigo(lugarJson.get("Codigo").getAsString());
+                                    lugar.setAndar(lugarJson.get("Andar").getAsString());
+                                    lugar.setActive(true);
 
-                                    //Chamada à API para ver se a obra já está a ser inspecionada no momento
-                                    Call<JsonObject> call1 = RetrofitClient.getInstance().getMyApi().getInspecaoAtivaPorIdObra(id);
+                                    //Chamada à API para ver se o lugar já está a ser usado num estacionamento no momento
+                                    Call<JsonObject> call1 = RetrofitClient.getInstance().getMyApi().getEstacionamentoAtivoPorIdLugar(lugar.getId());
                                     call1.enqueue(new Callback<JsonObject>() {
                                         @Override
                                         public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                                            if(response.body().get("Success").getAsBoolean()){//Verifica se o pedido foi bem sucedido, ou seja se a obra está a ser inspecionada no momento
-                                                //A obra está a ser inspecionada no momento
-                                                if(response.body().get("Inspecao").getAsJsonObject().get("InspectorId").getAsInt() == loggedInUser.getId()){
-                                                    //Se o id do inspetor que está a inspecionar essa obra for igual ao do loggedInUser
-                                                    comecarInspecao(obra, response.body().get("Inspecao").getAsJsonObject()); //Usa uma função auxiliar para começar a inspeção localmente (a função está mais em baixo)
+                                            if(response.body().get("Sucesso").getAsBoolean()){//Verifica se o pedido foi bem sucedido, ou seja se o lugar está a ser usado num estacionamento no momento
+                                                //O lugar está a ser usado num estacionamento no momento
+                                                if(response.body().get("Estacionamento").getAsJsonObject().get("UtilizadorId").getAsInt() == loggedInUser.getId()){
+                                                    //Se o id do utilizador que está a uesar o estacionamento nesse lugar for igual ao do loggedInUser
+                                                    comecarEstacionamento(lugar, response.body().get("Estacionamento").getAsJsonObject()); //Usa uma função auxiliar para começar o estacionamento localmente (a função está mais em baixo)
                                                 }else{
-                                                    //A obra está a ser inspecionada por outra pessoa
-                                                    Toast.makeText(getApplicationContext(), "Essa obra já está a ser inspecionada por outro inspetor", Toast.LENGTH_LONG).show();
+                                                    //O lugar está a ser usado por outra pessoa
+                                                    Toast.makeText(getApplicationContext(), "Esse lugar já está a ser usado noutro estacionamento", Toast.LENGTH_LONG).show();
                                                     Intent intent = new Intent(getApplicationContext(), PaginaInicial.class);
                                                     startActivity(intent);
                                                 }
                                             }else{
-                                                //A obra não está a ser inspecionada no momento
-                                                showMessageOKCancel("Tem a certeza que quer iniciar a inspeção à obra \"" + obra.getNome() + "\" responsável por " + obra.getResponsavel() + "?",
+                                                //O lugar não está a ser usado num estacionamento no momento
+                                                showMessageOKCancel("Tem a certeza que quer dar entrada no estacionamento no lugar \"" + lugar.getCodigo() + "?",
                                                     new DialogInterface.OnClickListener() { //Listener do click no botão sim
                                                         @Override
                                                         public void onClick(DialogInterface dialogInterface, int i) {
                                                             //Utilizador clicou no botão sim
 
-                                                            //Chamada à API para começar a inspeção no servidor
-                                                            String request = "{ \"InspectorId\":  \"" + loggedInUser.getId() + "\", \"ObraId\": \"" + obra.getId() + "\"}";
+                                                            //Chamada à API para dar entrada no estacionamento no servidor
+                                                            String request = "{ \"UtilizadorId\":  \"" + loggedInUser.getId() + "\", \"LugarId\": \"" + lugar.getId() + "\"}";
                                                             JsonObject bodyJson = new JsonParser().parse(request).getAsJsonObject();
-                                                            Call<JsonObject> call2 = RetrofitClient.getInstance().getMyApi().iniciarInspecao(bodyJson);
+                                                            Call<JsonObject> call2 = RetrofitClient.getInstance().getMyApi().entrada(bodyJson);
                                                             call2.enqueue(new Callback<JsonObject>() {
                                                                 @Override
                                                                 public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                                                                    if(response.body().get("Success").getAsBoolean()){
-                                                                        //O server aceitou a inspeção com sucesso
-                                                                        comecarInspecao(obra, response.body().get("Inspecao").getAsJsonObject()); //Usa uma função auxiliar para começar a inspeção localmente (a função está mais em baixo)
+                                                                    if(response.body().get("Sucesso").getAsBoolean()){
+                                                                        //O server aceitou o estacionamento com sucesso
+                                                                        comecarEstacionamento(lugar, response.body().get("Estacionamento").getAsJsonObject()); //Usa uma função auxiliar para começar o estacionamento localmente (a função está mais em baixo)
                                                                     }else{
-                                                                        //O server não começou a inspeção por algum motivo
+                                                                        //O server não começou o estacionamento por algum motivo
                                                                         Toast.makeText(getApplicationContext(), response.body().get("Mensagem").getAsString(), Toast.LENGTH_SHORT).show();
                                                                         Intent intent = new Intent(getApplicationContext(), PaginaInicial.class);
                                                                         startActivity(intent);
@@ -154,7 +150,7 @@ public class QRCodeReader extends AppCompatActivity implements ZXingScannerView.
                                                                 @Override
                                                                 public void onFailure(Call<JsonObject> call, Throwable t) {
                                                                     //Aconteceu alguma coisa de errado por parte do servidor
-                                                                    Toast.makeText(getApplicationContext(), "Aconteceu algo de errado ao tentar iniciar a inspeção", Toast.LENGTH_SHORT).show();
+                                                                    Toast.makeText(getApplicationContext(), "Aconteceu algo de errado ao tentar iniciar o estacionamento", Toast.LENGTH_SHORT).show();
                                                                     Intent intent = new Intent(getApplicationContext(), PaginaInicial.class);
                                                                     startActivity(intent);
                                                                 }
@@ -176,13 +172,13 @@ public class QRCodeReader extends AppCompatActivity implements ZXingScannerView.
                                         @Override
                                         public void onFailure(Call<JsonObject> call, Throwable t) {
                                             //Aconteceu alguma coisa de errado por parte do servidor
-                                            Toast.makeText(getApplicationContext(), "Aconteceu algo de errado ao tentar iniciar a inspeção", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getApplicationContext(), "Aconteceu algo de errado ao tentar iniciar o estacionamento", Toast.LENGTH_SHORT).show();
                                             Intent intent = new Intent(getApplicationContext(), PaginaInicial.class);
                                             startActivity(intent);
                                         }
                                     });
                                 }else{
-                                    //Não existe nenhuma obra com o id fornecido
+                                    //Não existe nenhum lugar com o codigo fornecido
                                     Toast.makeText(getApplicationContext(), response.body().get("Mensagem").getAsString(), Toast.LENGTH_SHORT).show();
                                     qrCodeInvalido();
                                 }
@@ -190,28 +186,20 @@ public class QRCodeReader extends AppCompatActivity implements ZXingScannerView.
                             @Override
                             public void onFailure(Call<JsonObject> call, Throwable t) {
                                 //Aconteceu alguma coisa de errado por parte do servidor
-                                Toast.makeText(getApplicationContext(), "Aconteceu algo de errado ao tentar iniciar a inspeção", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Aconteceu algo de errado ao tentar iniciar o estacionamento", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(getApplicationContext(), PaginaInicial.class);
                                 startActivity(intent);
                             }
-                        }); */
+                        });
                     }else{
                         //Não existe conexão à internet
                         Toast.makeText(QRCodeReader.this, "É necessário uma conexão à internet...", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(getApplicationContext(), PaginaInicial.class);
                         startActivity(intent);
                     }
-                }else{
-                    //O id fornecido é um número negativo
-                    qrCodeInvalido();
-                }
-            }else{
-                //O qr code lido não devolveu um número inteiro
-                qrCodeInvalido();
-            }
         }catch (Exception error){
             //Aconteceu alguma coisa durante a execução do código
-            Toast.makeText(getApplicationContext(), "Aconteceu algo de errado ao tentar iniciar a inspeção", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Aconteceu algo de errado ao tentar iniciar o estacionamento", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getApplicationContext(), PaginaInicial.class);
             startActivity(intent);
         }
@@ -219,8 +207,8 @@ public class QRCodeReader extends AppCompatActivity implements ZXingScannerView.
     }
 
     //Função auxiliar usada para reciclar código usado duas vezes para começar a inspeção localmente
-    private void comecarInspecao(Lugar lugar, JsonObject inspecao){
-        //Cria um objeto do tipo Inspecao usando o Json que recebeu da API
+    private void comecarEstacionamento(Lugar lugar, JsonObject inspecao){
+        //Cria um objeto do tipo Estacionamento usando o Json que recebeu da API
         Estacionamento estacionamentoADecorrer = new Estacionamento();
         estacionamentoADecorrer.setId(inspecao.get("Id").getAsInt());
         estacionamentoADecorrer.setDataEntrada(inspecao.get("DataEntrada").getAsString());
@@ -228,28 +216,28 @@ public class QRCodeReader extends AppCompatActivity implements ZXingScannerView.
         estacionamentoADecorrer.setEstacionamentoLivre(inspecao.get("EstacionamentoLivre").getAsBoolean());
         estacionamentoADecorrer.setUtilizadorId(inspecao.get("UtilizadorId").getAsInt());
         estacionamentoADecorrer.setLugarId(inspecao.get("LugarId").getAsInt());
-        estacionamentoADecorrer.setActive(inspecao.get("IsActive").getAsBoolean());
-        if (bd.getEstacionamentoADecorrer().isActive()) { //Verifica se existe alguma inspeção a decorrer localmente
-            //Existe uma inspeção a decorrer localmente
-            if (bd.getEstacionamentoADecorrer() != estacionamentoADecorrer) { //Verifica se a inspeção que está a decorrer localmente é diferente da recebida
-                bd.acabarEstacionamentoLocal(); //Se for acaba a inspeção local
-                bd.comecarEstacionamentoLocal(estacionamentoADecorrer); //e começa uma nova com os dados da inspeção recebida
+        estacionamentoADecorrer.setActive(true);
+        if (bd.getEstacionamentoADecorrer().isActive()) { //Verifica se existe algum estacionamento a decorrer localmente
+            //Existe um estacionamento a decorrer localmente
+            if (bd.getEstacionamentoADecorrer() != estacionamentoADecorrer) { //Verifica se o estacionamento que está a decorrer localmente é diferente do recebido
+                bd.acabarEstacionamentoLocal(); //Se for acaba o estacionamento local
+                bd.comecarEstacionamentoLocal(estacionamentoADecorrer); //e começa um novo com os dados do estacionamento recebido
             }
         } else {
-            //Não existe nenhuma inspeção a decorrer localmente
-            bd.comecarEstacionamentoLocal(estacionamentoADecorrer); //Começa a inspeção localmente
+            //Não existe nenhum estacionamento a decorrer localmente
+            bd.comecarEstacionamentoLocal(estacionamentoADecorrer); //Começa o estacionamento localmente
         }
-        if (bd.getLugarLocal().isActive()) {//Verifica se a obra já existe localmente
+        if (bd.getLugarLocal().isActive()) {//Verifica se o lugar já existe localmente
             //A obra existe localmente
-            if (bd.getLugarLocal() != lugar) {//Verifica se a obra que existe localmente é diferente da recebida
-                bd.editarLugar(lugar); //Se for altera a obra local e coloca os dados da obra recebida
+            if (bd.getLugarLocal() != lugar) {//Verifica se o lugar que existe localmente é diferente do recebido
+                bd.editarLugar(lugar); //Se for altera o lugar local e coloca os dados do lugar recebido
             }
         } else {
-            //A obra não existe localmente
-            bd.adicionarLugar(lugar); //Cria a obra localmente
+            //O lugar não existe localmente
+            bd.adicionarLugar(lugar); //Cria o lugar localmente
         }
 
-        Intent intent = new Intent(getApplicationContext(), InspecaoADecorrer.class);
+        Intent intent = new Intent(getApplicationContext(), EstacionamentoADecorrer.class);
         startActivity(intent);
     }
 
@@ -299,18 +287,6 @@ public class QRCodeReader extends AppCompatActivity implements ZXingScannerView.
                 .setNegativeButton("Não", cancelListener)
                 .create()
                 .show();
-    }
-
-    public static boolean isNumeric(String strNum) {
-        if (strNum == null) {
-            return false;
-        }
-        try {
-            int d = Integer.parseInt(strNum);
-        } catch (Exception e) {
-            return false;
-        }
-        return true;
     }
 
 }
