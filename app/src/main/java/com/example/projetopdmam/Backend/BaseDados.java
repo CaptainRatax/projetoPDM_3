@@ -239,10 +239,32 @@ public class BaseDados extends SQLiteOpenHelper {
             Lugar lugar = new Lugar(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2),
                     Integer.parseInt(cursor.getString(7)) == 1);
 
+            bd.close();
+
             return lugar;
         }catch (Exception e){
             return new Lugar();
         }
+    }
+
+    public Lugar getLugarLocal(){
+        SQLiteDatabase bd = this.getWritableDatabase();
+
+        Lugar lugar = new Lugar();
+        String query = "SELECT * FROM " + TABELA_LUGARES;
+
+        Cursor cursor = bd.rawQuery(query, null);
+
+        if(cursor.moveToFirst()){
+            lugar.setId(Integer.parseInt(cursor.getString(0)));
+            lugar.setCodigo(cursor.getString(1));
+            lugar.setAndar(cursor.getString(2));
+            lugar.setActive(Integer.parseInt(cursor.getString(3)) == 1);
+        }
+
+        //bd.close();
+
+        return lugar;
     }
 
     //Editar lugar
@@ -315,9 +337,9 @@ public class BaseDados extends SQLiteOpenHelper {
 
         bd.delete(TABELA_ESTACIONAMENTOS, ESTACIONAMENTOS_ID + " = ?", new String[] {String.valueOf(Id)});
 
-        //bd.close();
+        bd.close();
 
-        Lugar lugar = getLugarPorId(estacionamentoADecorrer.getLugarId());
+        Lugar lugar = getLugarLocal();
 
         if(lugar.isActive()){
             eliminarLugar(estacionamentoADecorrer.getLugarId());
@@ -332,7 +354,7 @@ public class BaseDados extends SQLiteOpenHelper {
         SQLiteDatabase bd = this.getWritableDatabase();
 
         Estacionamento estacionamento = new Estacionamento();
-        String query = "SELECT * FROM " + TABELA_LUGARES;
+        String query = "SELECT * FROM " + TABELA_ESTACIONAMENTOS;
 
         Cursor cursor = bd.rawQuery(query, null);
 
@@ -495,30 +517,26 @@ public class BaseDados extends SQLiteOpenHelper {
         return listaCasos;
     }
 
-    //Get de todos os Casos por Estacionamento Id
-    public List<Caso> getCasosPorIdEstacionamento(int Id){
-        List<Caso> listaCasos = new ArrayList<Caso>();
-
-        String query = "SELECT * FROM " + TABELA_CASOS + " WHERE " + CASOS_ESTACIONAMENTOID + " = " + Id;
-
+    //Get do Caso pelo Estacionamento Id
+    public Caso getCasoPorIdEstacionamento(int Id){
         SQLiteDatabase bd = this.getWritableDatabase();
+
+        Caso caso = new Caso();
+        String query = "SELECT * FROM " + TABELA_CASOS;
+
         Cursor cursor = bd.rawQuery(query, null);
 
         if(cursor.moveToFirst()){
-            do {
-                Caso caso = new Caso();
-                caso.setId(Integer.parseInt(cursor.getString(0)));
-                caso.setEstacionamentoId(Integer.parseInt(cursor.getString(1)));
-                caso.setTitulo(cursor.getString(2));
-                caso.setDescricao(cursor.getString(3));
-                caso.setFotografia(cursor.getString(4));
-                listaCasos.add(caso);
-            } while (cursor.moveToNext());
+            caso.setId(Integer.parseInt(cursor.getString(0)));
+            caso.setEstacionamentoId(Integer.parseInt(cursor.getString(1)));
+            caso.setTitulo(cursor.getString(2));
+            caso.setDescricao(cursor.getString(3));
+            caso.setFotografia(cursor.getString(4));
         }
 
         //bd.close();
 
-        return listaCasos;
+        return caso;
     }
 
 }

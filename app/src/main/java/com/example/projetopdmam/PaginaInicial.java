@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -64,7 +65,7 @@ public class PaginaInicial extends AppCompatActivity {
                             lugar.setAndar(lugarJson.get("Andar").getAsString());
                             lugar.setActive(true);
 
-                            JsonObject estacionamento = response.body().get("Inspecao").getAsJsonObject();
+                            JsonObject estacionamento = response.body().get("Estacionamento").getAsJsonObject();
                             //Cria um objeto do tipo Estacionamento usando o Json que recebeu da API
                             estacionamentoADecorrer.setId(estacionamento.get("Id").getAsInt());
                             estacionamentoADecorrer.setUtilizadorId(estacionamento.get("UtilizadorId").getAsInt());
@@ -84,9 +85,9 @@ public class PaginaInicial extends AppCompatActivity {
                                 //Não existe nenhum estacionamento a decorrer localmente
                                 bd.comecarEstacionamentoLocal(estacionamentoADecorrer); //Começa o estacionamento localmente
                             }
-                            if (bd.getLugarPorId(lugar.getId()).isActive()) {//Verifica se o lugar já existe localmente
+                            if (bd.getLugarLocal().isActive()) {//Verifica se o lugar já existe localmente
                                 //O lugar existe localmente
-                                if (bd.getLugarPorId(lugar.getId()) != lugar) {//Verifica se o lugar que existe localmente é diferente do recebido da API
+                                if (bd.getLugarLocal() != lugar) {//Verifica se o lugar que existe localmente é diferente do recebido da API
                                     bd.editarLugar(lugar); //Se for altera o lugar local e coloca os dados do lugar recebido da API
                                 }
                             } else {
@@ -115,11 +116,28 @@ public class PaginaInicial extends AppCompatActivity {
 
         FloatingActionButton btn_Logout = findViewById(R.id.btn_Logout);
         Button btn_QRCodeScanner = findViewById(R.id.btn_QRCodeScanner);
+        ImageView imageView = findViewById(R.id.imageView);
 
         btn_QRCodeScanner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(checkPermission()){
+                    if(isInternetAvailable()){
+                        Intent intent = new Intent(getApplicationContext(), QRCodeReader.class);
+                        startActivity(intent);
+                    }else {
+                        Toast.makeText(PaginaInicial.this, "É necessário uma conexão à internet...", Toast.LENGTH_LONG).show();
+                    }
+                }else{
+                    requestPermission();
+                    Toast.makeText(PaginaInicial.this, "É necessário aceitar a permissão de acesso à câmara!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 if(checkPermission()){
                     if(isInternetAvailable()){
                         Intent intent = new Intent(getApplicationContext(), QRCodeReader.class);

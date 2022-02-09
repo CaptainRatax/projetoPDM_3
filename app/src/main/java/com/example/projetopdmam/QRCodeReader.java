@@ -239,9 +239,9 @@ public class QRCodeReader extends AppCompatActivity implements ZXingScannerView.
             //Não existe nenhuma inspeção a decorrer localmente
             bd.comecarEstacionamentoLocal(estacionamentoADecorrer); //Começa a inspeção localmente
         }
-        if (bd.getLugarPorId(lugar.getId()).isActive()) {//Verifica se a obra já existe localmente
+        if (bd.getLugarLocal().isActive()) {//Verifica se a obra já existe localmente
             //A obra existe localmente
-            if (bd.getLugarPorId(lugar.getId()) != lugar) {//Verifica se a obra que existe localmente é diferente da recebida
+            if (bd.getLugarLocal() != lugar) {//Verifica se a obra que existe localmente é diferente da recebida
                 bd.editarLugar(lugar); //Se for altera a obra local e coloca os dados da obra recebida
             }
         } else {

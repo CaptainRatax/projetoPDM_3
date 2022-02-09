@@ -58,7 +58,7 @@ public class NovoCaso extends AppCompatActivity {
         setContentView(R.layout.activity_novo_caso);
         loggedInUser=bd.getLoggedInUser();
         estacionamentoADecorrer =bd.getEstacionamentoADecorrer();
-        lugar =bd.getLugarPorId(estacionamentoADecorrer.getLugarId());
+        lugar =bd.getLugarLocal();
 
         FloatingActionButton btn_Voltar = findViewById(R.id.btn_Voltar);
         Button btn_GuardarCaso = findViewById(R.id.btn_GuardarCaso);

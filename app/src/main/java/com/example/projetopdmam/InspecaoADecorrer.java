@@ -16,13 +16,19 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.projetopdmam.Backend.BaseDados;
+import com.example.projetopdmam.Backend.RetrofitClient;
 import com.example.projetopdmam.Modelos.Caso;
 import com.example.projetopdmam.Modelos.Estacionamento;
 import com.example.projetopdmam.Modelos.Lugar;
 import com.example.projetopdmam.Modelos.Utilizador;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.gson.JsonObject;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class InspecaoADecorrer extends AppCompatActivity {
 
@@ -31,9 +37,7 @@ public class InspecaoADecorrer extends AppCompatActivity {
     Utilizador loggedInUser;
     Estacionamento estacionamentoADecorrer;
     Lugar lugar;
-    List<Caso> listaCasos;
-
-    ListView listview;
+    Caso caso;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,35 +47,19 @@ public class InspecaoADecorrer extends AppCompatActivity {
 
         loggedInUser = bd.getLoggedInUser();
         estacionamentoADecorrer = bd.getEstacionamentoADecorrer();
-        lugar = bd.getLugarPorId(estacionamentoADecorrer.getLugarId());
-        listaCasos = bd.getCasosPorIdEstacionamento(estacionamentoADecorrer.getId());
+        lugar = bd.getLugarLocal();
+        caso = bd.getCasoPorIdEstacionamento(estacionamentoADecorrer.getId());
 
-        listview = findViewById(R.id.listview);
-
-
-
-        ListAdapter listAdapter = new ListAdapter(InspecaoADecorrer.this, listaCasos);
-        listview.setAdapter(listAdapter);
-        listview.setClickable(true);
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(getApplicationContext(), DetalhesCaso.class);
-                intent.putExtra("CasoId", listaCasos.get(i).getId());
-                startActivity(intent);
-            }
-        });
-
-        if(isInternetAvailable()){ /*
-            Call<JsonObject> call = RetrofitClient.getInstance().getMyApi().getInspecaoAtivaPorIdInspetorIdObra(loggedInUser.getId(), inspecaoADecorrer.getObraId());
+        if(isInternetAvailable()){
+            Call<JsonObject> call = RetrofitClient.getInstance().getMyApi().getEstacionamentoAtivoPorIdUtilizadorIdLugar(loggedInUser.getId(), estacionamentoADecorrer.getLugarId());
             call.enqueue(new Callback<JsonObject>() {
                 @Override
                 public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                    if(response.body().get("Success").getAsBoolean()){
+                    if(response.body().get("Sucesso").getAsBoolean()){
 
                     }else{
-                        bd.acabarInspecaoLocal();
-                        Toast.makeText(getApplicationContext(), "A inspeção que estava guardarda localmente já foi finalizada!", Toast.LENGTH_LONG).show();
+                        bd.acabarEstacionamentoLocal();
+                        Toast.makeText(getApplicationContext(), "o estacionamento que estava guardardo localmente já terminou!", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(getApplicationContext(), PaginaInicial.class);
                         startActivity(intent);
                     }
@@ -81,42 +69,42 @@ public class InspecaoADecorrer extends AppCompatActivity {
                 public void onFailure(Call<JsonObject> call, Throwable t) {
 
                 }
-            }); */
+            });
         }else{
             Toast.makeText(getApplicationContext(), "Sem conexão à internet!", Toast.LENGTH_SHORT).show();
         }
 
         FloatingActionButton btn_cancel = findViewById(R.id.btn_cancel);
         FloatingActionButton btn_NovoCaso = findViewById(R.id.btn_NovoCaso);
-        //Button btn_TerminarInspecao = findViewById(R.id.btn_TerminarInspecao);
         btn_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showMessageOKCancel("Tem a certeza que quer cancelar a inspeção atual? Ao cancelar a inspeção atual serão peridas todas as informações dos casos!",
+                showMessageOKCancel("Tem a certeza que quer terminar o estacionamento atual?",
                     new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        if(isInternetAvailable()){/*
-                            Call<JsonObject> call1 = RetrofitClient.getInstance().getMyApi().cancelarInspecao(inspecaoADecorrer.getId());
-                            call1.enqueue(new Callback<JsonObject>() {
+                        if(isInternetAvailable()){
+                            Call<JsonObject> call = RetrofitClient.getInstance().getMyApi().saida(loggedInUser.getId());
+                            call.enqueue(new Callback<JsonObject>() {
                                 @Override
                                 public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                                    if(response.body().get("Success").getAsBoolean()){
-                                        bd.acabarInspecaoLocal();
-                                        Toast.makeText(getApplicationContext(), "Inspeção cancelada com sucesso", Toast.LENGTH_SHORT).show();
+                                    if(response.body().get("Sucesso").getAsBoolean()){
+                                        bd.acabarEstacionamentoLocal();
+                                        Toast.makeText(getApplicationContext(), "O estacionamento foi terminado com sucesso!", Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent(getApplicationContext(), PaginaInicial.class);
                                         startActivity(intent);
                                     }else{
                                         Toast.makeText(getApplicationContext(), response.body().get("Mensagem").getAsString(), Toast.LENGTH_LONG).show();
                                     }
                                 }
+
                                 @Override
                                 public void onFailure(Call<JsonObject> call, Throwable t) {
-                                    Toast.makeText(getApplicationContext(), "Aconteceu algo errado por parte do servidor", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(), "Aconteceu algo errado ao tentar finalizar o estacionamento", Toast.LENGTH_SHORT).show();
                                 }
-                            }); */
+                            });
                         }else{
-                            Toast.makeText(getApplicationContext(), "É necessária uma conexão à internet para efetuar essa operação!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "É necessária uma conexão à internet para efetuar essa operação!", Toast.LENGTH_SHORT).show();
                         }
                     }
                 },
@@ -131,40 +119,6 @@ public class InspecaoADecorrer extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        /*btn_TerminarInspecao.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showMessageOKCancel("Tem a certeza que quer finalizar a inspeção? (A inspeção será guardada e nenhum dado será perdido)", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        if(isInternetAvailable()){
-                            Call<JsonObject> call = RetrofitClient.getInstance().getMyApi().terminarInspecao(inspecaoADecorrer.getId());
-                            call.enqueue(new Callback<JsonObject>() {
-                                @Override
-                                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                                    if(response.body().get("Success").getAsBoolean()){
-                                        bd.acabarInspecaoLocal();
-                                        Toast.makeText(getApplicationContext(), "A inspeção foi finalizada com sucesso!", Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(getApplicationContext(), PaginaInicial.class);
-                                        startActivity(intent);
-                                    }else{
-                                        Toast.makeText(getApplicationContext(), response.body().get("Mensagem").getAsString(), Toast.LENGTH_LONG).show();
-                                    }
-                                }
-
-                                @Override
-                                public void onFailure(Call<JsonObject> call, Throwable t) {
-                                    Toast.makeText(getApplicationContext(), "Aconteceu algo errado ao tentar finalizar a inspeção", Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                        }else{
-                            Toast.makeText(getApplicationContext(), "É necessária uma conexão à internet para efetuar essa operação!", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }, null);
-            }
-        });*/
 
     }
 
