@@ -55,7 +55,7 @@ public class EstacionamentoADecorrer extends AppCompatActivity {
 
                     }else{
                         bd.acabarEstacionamentoLocal();
-                        Toast.makeText(getApplicationContext(), "o estacionamento que estava guardardo localmente já terminou!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "O estacionamento que estava guardardo localmente já terminou!", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(getApplicationContext(), PaginaInicial.class);
                         startActivity(intent);
                     }
