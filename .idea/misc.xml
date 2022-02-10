@@ -3,29 +3,24 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/alabreu/Desktop/projetoPDMSAM-main/projetoPDMSAM-main/app/src/main/res/layout/activity_inspecao_adecorrer.xml" value="0.2694746376811594" />
-        <entry key="..\:/Users/alabreu/Desktop/projetoPDMSAM-main/projetoPDMSAM-main/app/src/main/res/layout/activity_novo_caso.xml" value="0.28306159420289856" />
-        <entry key="..\:/Users/alabreu/Desktop/projetoPDMSAM-main/projetoPDMSAM-main/app/src/main/res/layout/activity_pagina_inicial.xml" value="0.28306159420289856" />
-        <entry key="..\:/Users/alabreu/Desktop/projetoPDMSAM-main/projetoPDMSAM-main/app/src/main/res/layout/activity_qrcode_reader.xml" value="0.28306159420289856" />
-        <entry key="..\:/Users/alabreu/Desktop/projetoPDMSAM-main/projetoPDMSAM-main/app/src/main/res/layout/login_main.xml" value="0.28306159420289856" />
-        <entry key="..\:/Users/alabreu/Downloads/projetoPDMSAM-main/projetoPDMSAM-main/app/src/main/res/drawable/ic_baseline_note_add_24.xml" value="0.3828125" />
-        <entry key="..\:/Users/alabreu/Downloads/projetoPDMSAM-main/projetoPDMSAM-main/app/src/main/res/layout/activity_detalhes_caso.xml" value="0.2957427536231884" />
-        <entry key="..\:/Users/alabreu/Downloads/projetoPDMSAM-main/projetoPDMSAM-main/app/src/main/res/layout/activity_inspecao_adecorrer.xml" value="0.2957427536231884" />
-        <entry key="..\:/Users/alabreu/Downloads/projetoPDMSAM-main/projetoPDMSAM-main/app/src/main/res/layout/activity_novo_caso.xml" value="0.2957427536231884" />
-        <entry key="..\:/Users/alabreu/Downloads/projetoPDMSAM-main/projetoPDMSAM-main/app/src/main/res/layout/activity_pagina_inicial.xml" value="0.2957427536231884" />
-        <entry key="..\:/Users/alabreu/Downloads/projetoPDMSAM-main/projetoPDMSAM-main/app/src/main/res/layout/activity_qrcode_reader.xml" value="0.2957427536231884" />
-        <entry key="..\:/Users/alabreu/Downloads/projetoPDMSAM-main/projetoPDMSAM-main/app/src/main/res/layout/list_item.xml" value="0.2957427536231884" />
-        <entry key="..\:/Users/alabreu/Downloads/projetoPDMSAM-main/projetoPDMSAM-main/app/src/main/res/layout/login_main.xml" value="0.2957427536231884" />
-        <entry key="..\:/Users/ratax/AndroidStudioProjects/ProjetoPDMSAM/app/src/main/res/layout/activity_detalhes_caso.xml" value="0.33" />
-        <entry key="..\:/Users/ratax/AndroidStudioProjects/ProjetoPDMSAM/app/src/main/res/layout/activity_inspecao_adecorrer.xml" value="0.33" />
-        <entry key="..\:/Users/ratax/AndroidStudioProjects/ProjetoPDMSAM/app/src/main/res/layout/activity_main.xml" value="0.33" />
-        <entry key="..\:/Users/ratax/AndroidStudioProjects/ProjetoPDMSAM/app/src/main/res/layout/activity_novo_caso.xml" value="0.25" />
-        <entry key="..\:/Users/ratax/AndroidStudioProjects/ProjetoPDMSAM/app/src/main/res/layout/activity_pagina_inicial.xml" value="0.33" />
-        <entry key="..\:/Users/ratax/AndroidStudioProjects/ProjetoPDMSAM/app/src/main/res/layout/activity_qrcode_reader.xml" value="0.3625" />
-        <entry key="..\:/Users/ratax/AndroidStudioProjects/ProjetoPDMSAM/app/src/main/res/layout/list_item.xml" value="0.4142705005324814" />
-        <entry key="..\:/Users/ratax/AndroidStudioProjects/ProjetoPDMSAM/app/src/main/res/layout/login_main.xml" value="0.3401268115942029" />
-        <entry key="..\:/Users/ratax/AndroidStudioProjects/ProjetoPDMSAM/app/src/main/res/mipmap-anydpi-v26/renergy_Icon.xml" value="0.21875" />
-        <entry key="..\:/Users/ratax/AndroidStudioProjects/ProjetoPDMSAM/app/src/main/res/mipmap-anydpi-v26/renergy_icons.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/ratax/Downloads/projetoPDM_AM/app/src/main/res/drawable/ic_baseline_delete_forever_24.xml" value="0.1935" />
+        <entry key="..\:/Users/ratax/Downloads/projetoPDM_AM/app/src/main/res/drawable/ic_baseline_exit_to_app_24.xml" value="0.1935" />
+        <entry key="..\:/Users/ratax/Downloads/projetoPDM_AM/app/src/main/res/drawable/ic_baseline_image_not_supported_24.xml" value="0.1935" />
+        <entry key="..\:/Users/ratax/Downloads/projetoPDM_AM/app/src/main/res/drawable/ic_logout_circle.xml" value="0.1935" />
+        <entry key="..\:/Users/ratax/Downloads/projetoPDM_AM/app/src/main/res/layout/activity_detalhes_caso.xml" value="0.18541666666666667" />
+        <entry key="..\:/Users/ratax/Downloads/projetoPDM_AM/app/src/main/res/layout/activity_edit_caso.xml" value="0.18541666666666667" />
+        <entry key="..\:/Users/ratax/Downloads/projetoPDM_AM/app/src/main/res/layout/activity_editar_caso.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/ratax/Downloads/projetoPDM_AM/app/src/main/res/layout/activity_estacionamento_adecorrer.xml" value="0.25" />
+        <entry key="..\:/Users/ratax/Downloads/projetoPDM_AM/app/src/main/res/layout/activity_inspecao_adecorrer.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/ratax/Downloads/projetoPDM_AM/app/src/main/res/layout/activity_novo_caso.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/ratax/Downloads/projetoPDM_AM/app/src/main/res/layout/activity_pagina_inicial.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/ratax/Downloads/projetoPDM_AM/app/src/main/res/layout/activity_qrcode_reader.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/ratax/Downloads/projetoPDM_AM/app/src/main/res/layout/list_item.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/ratax/Downloads/projetoPDM_AM/app/src/main/res/layout/login_main.xml" value="0.25" />
+        <entry key="..\:/Users/ratax/Downloads/projetoPDM_AM/app/src/main/res/layout/nav_header.xml" value="0.5" />
+        <entry key="..\:/Users/ratax/Downloads/projetoPDM_AM/app/src/main/res/menu/drawer_menu.xml" value="0.33" />
+        <entry key="..\:/Users/ratax/Downloads/projetoPDM_AM/app/src/main/res/menu/drawer_menu_estacionamento.xml" value="0.18541666666666667" />
+        <entry key="..\:/Users/ratax/Downloads/projetoPDM_AM/app/src/main/res/menu/drawer_menu_inicial.xml" value="0.3625" />
       </map>
     </option>
   </component>

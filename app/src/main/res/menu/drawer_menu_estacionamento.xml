@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+    <group android:id="@+id/menu_estacionamentoADecorrer"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home_circle_svgrepo_com"
+            android:title="Início"
+            android:visible="true" />
+        <item
+            android:id="@+id/nav_caso"
+            android:icon="@drawable/ic_baseline_add_circle_24"
+            android:title="Criar/Editar Caso"
+            android:visible="true" />
+        <item
+            android:id="@+id/nav_terminar_estacionamento"
+            android:icon="@drawable/ic_baseline_check_circle_24"
+            android:title="Finalizar estacionamento"
+            android:visible="true" />
+    </group>
+
+    <group android:id="@+id/menu_options">
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/ic_logout_circle"
+                android:title="Logout" />
+    </group>
+
+
+</menu>

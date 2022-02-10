@@ -62,19 +62,6 @@
                                 <PersistentState>
                                   <option name="children">
                                     <map>
-                                      <entry key="backgroundImage">
-                                        <value>
-                                          <PersistentState>
-                                            <option name="values">
-                                              <map>
-                                                <entry key="imagePath" value="C:\Users\ratax\Downloads\fundo_transparente.png" />
-                                                <entry key="scalingPercent" value="0" />
-                                                <entry key="trimmed" value="true" />
-                                              </map>
-                                            </option>
-                                          </PersistentState>
-                                        </value>
-                                      </entry>
                                       <entry key="foregroundClipArt">
                                         <value>
                                           <PersistentState>
@@ -93,8 +80,8 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="C:\Users\ratax\Downloads\RenergyLogo2-removebg-preview.png" />
-                                                <entry key="scalingPercent" value="60" />
+                                                <entry key="imagePath" value="C:\Users\ratax\Downloads\c_parking_logo.png" />
+                                                <entry key="scalingPercent" value="50" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -126,7 +113,10 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="outputName" value="renergy_icons" />
+                                      <entry key="backgroundAssetType" value="COLOR" />
+                                      <entry key="backgroundColor" value="ffffff" />
+                                      <entry key="legacyIconShape" value="CIRCLE" />
+                                      <entry key="outputName" value="c_parking_icons" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -320,7 +310,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/exit_to_app/baseline_exit_to_app_24.xml" />
+                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/home/baseline_home_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -330,9 +320,9 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_baseline_exit_to_app_24" />
-                            <entry key="sourceFile" value="C:\Users\ratax\Downloads\Add_Image_icon-icons.com_54218.svg" />
+                            <entry key="assetSourceType" value="FILE" />
+                            <entry key="outputName" value="ic_qr_code_svgrepo_com" />
+                            <entry key="sourceFile" value="C:\Users\ratax\Downloads\qr-code-svgrepo-com.svg" />
                           </map>
                         </option>
                       </PersistentState>
