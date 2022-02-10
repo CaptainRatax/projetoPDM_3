@@ -54,6 +54,7 @@ public class BaseDados extends SQLiteOpenHelper {
     private static final String CASOS_TITULO = "Titulo";
     private static final String CASOS_DESCRICAO = "Descricao";
     private static final String CASOS_FOTOGRAFIA = "Fotografia";
+    private static final String CASOS_ISACTIVE = "IsActive";
 
     public BaseDados(Context context) {
         super(context, NOME_BASE_DADOS, null, VERSAO_BASE_DADOS);
@@ -79,7 +80,7 @@ public class BaseDados extends SQLiteOpenHelper {
         String QUERY_CREATE_TABLE_CASOS = "CREATE TABLE " + TABELA_CASOS + "("
                 + CASOS_ID + " INTEGER PRIMARY KEY, " + CASOS_ESTACIONAMENTOID + " INTEGER, "
                 + CASOS_TITULO + " TEXT, " + CASOS_DESCRICAO + " TEXT, "
-                + CASOS_FOTOGRAFIA + " TEXT)";
+                + CASOS_FOTOGRAFIA + " TEXT, " + CASOS_ISACTIVE + " INTEGER)";
         bd.execSQL(QUERY_CREATE_TABLE_UTILIZADORES);
         bd.execSQL(QUERY_CREATE_TABLE_LUGARES);
         bd.execSQL(QUERY_CREATE_TABLE_ESTACIONAMENTOS);
@@ -116,10 +117,15 @@ public class BaseDados extends SQLiteOpenHelper {
     //Eliminar Utilizador
     public void logoutLocal(){
         int Id = getLoggedInUser().getId();
-
+        int lugarId = getLugarLocal().getId();
+        int estacionamentoId = getEstacionamentoADecorrer().getId();
+        int casoId = getCasoPorIdEstacionamento(estacionamentoId).getId();
         SQLiteDatabase bd = this.getWritableDatabase();
 
         bd.delete(TABELA_UTILIZADORES, UTILIZADORES_ID + " = ?", new String[] {String.valueOf(Id)});
+        bd.delete(TABELA_ESTACIONAMENTOS, ESTACIONAMENTOS_ID + " = ?", new String[] {String.valueOf(estacionamentoId)});
+        bd.delete(TABELA_LUGARES, LUGARES_ID + " = ?", new String[] {String.valueOf(lugarId)});
+        bd.delete(TABELA_CASOS, CASOS_ID + " = ?", new String[] {String.valueOf(casoId)});
 
         //bd.close();
     }
@@ -434,6 +440,7 @@ public class BaseDados extends SQLiteOpenHelper {
         values.put(CASOS_TITULO, caso.getTitulo());
         values.put(CASOS_DESCRICAO, caso.getDescricao());
         values.put(CASOS_FOTOGRAFIA, caso.getFotografia());
+        values.put(CASOS_ISACTIVE, caso.isActive() ? 1 : 0);
 
         bd.insert(TABELA_CASOS, null, values);
         //bd.close();
@@ -464,13 +471,13 @@ public class BaseDados extends SQLiteOpenHelper {
         SQLiteDatabase bd = this.getReadableDatabase();
 
         Cursor cursor = bd.query(TABELA_CASOS, new String[] {CASOS_ID, CASOS_ESTACIONAMENTOID, CASOS_TITULO,
-                        CASOS_DESCRICAO, CASOS_FOTOGRAFIA}, CASOS_ID + " = ?",
+                        CASOS_DESCRICAO, CASOS_FOTOGRAFIA, CASOS_ISACTIVE}, CASOS_ID + " = ?",
                 new String[] {String.valueOf(Id)}, null, null, null, null);
         if(cursor != null) {
             cursor.moveToFirst();
         }
         Caso caso = new Caso(Integer.parseInt(cursor.getString(0)), Integer.parseInt(cursor.getString(1)), cursor.getString(2), cursor.getString(3),
-                cursor.getString(4));
+                cursor.getString(4), Integer.parseInt(cursor.getString(5)) == 1);
 
         return caso;
     }
@@ -484,6 +491,7 @@ public class BaseDados extends SQLiteOpenHelper {
         values.put(CASOS_TITULO, caso.getTitulo());
         values.put(CASOS_DESCRICAO, caso.getDescricao());
         values.put(CASOS_FOTOGRAFIA, caso.getFotografia());
+        values.put(CASOS_ISACTIVE, caso.isActive() ? 1 : 0);
 
         bd.update(TABELA_CASOS, values, CASOS_ID + " = ?",
                 new String[] {String.valueOf(caso.getId())});
@@ -508,6 +516,7 @@ public class BaseDados extends SQLiteOpenHelper {
                 caso.setTitulo(cursor.getString(2));
                 caso.setDescricao(cursor.getString(3));
                 caso.setFotografia(cursor.getString(4));
+                caso.setActive(Integer.parseInt(cursor.getString(5)) == 1);
                 listaCasos.add(caso);
             } while (cursor.moveToNext());
         }
@@ -532,6 +541,7 @@ public class BaseDados extends SQLiteOpenHelper {
             caso.setTitulo(cursor.getString(2));
             caso.setDescricao(cursor.getString(3));
             caso.setFotografia(cursor.getString(4));
+            caso.setActive(Integer.parseInt(cursor.getString(5)) == 1);
         }
 
         //bd.close();

@@ -1,9 +1,13 @@
 package com.example.projetopdmam;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -16,10 +20,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.projetopdmam.Backend.BaseDados;
@@ -29,6 +35,7 @@ import com.example.projetopdmam.Modelos.Estacionamento;
 import com.example.projetopdmam.Modelos.Lugar;
 import com.example.projetopdmam.Modelos.Utilizador;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -39,9 +46,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class NovoCaso extends AppCompatActivity {
+public class NovoCaso extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     BaseDados bd = new BaseDados(this);
+
+    private DrawerLayout drawer;
 
     Utilizador loggedInUser;
     Estacionamento estacionamentoADecorrer;
@@ -60,19 +69,32 @@ public class NovoCaso extends AppCompatActivity {
         estacionamentoADecorrer =bd.getEstacionamentoADecorrer();
         lugar =bd.getLugarLocal();
 
-        FloatingActionButton btn_Voltar = findViewById(R.id.btn_Voltar);
+        Toolbar toolbar = findViewById(R.id.toolbar_novo_caso);
+        setSupportActionBar(toolbar);
+
+        drawer = findViewById(R.id.drawer_layout_novo_caso);
+        NavigationView navigationView = findViewById(R.id.nav_view_novo_caso);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+
+        View headerView = navigationView.getHeaderView(0);
+        TextView txt_Nome = (TextView) headerView.findViewById(R.id.nav_nome);
+        TextView txt_Email = (TextView) headerView.findViewById(R.id.nav_email);
+
+        toggle.syncState();
+
+        txt_Nome.setText(loggedInUser.getNome());
+        txt_Email.setText(loggedInUser.getEmail());
+
+        navigationView.setCheckedItem(R.id.nav_caso);
+
         Button btn_GuardarCaso = findViewById(R.id.btn_GuardarCaso);
         EditText edt_TituloCaso = findViewById(R.id.edt_TituloCaso);
         EditText edt_DescricaoCaso = findViewById(R.id.edt_DescricaoCaso);
         img_Caso = findViewById(R.id.img_Caso);
-
-        btn_Voltar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), EstacionamentoADecorrer.class);
-                startActivity(intent);
-            }
-        });
 
         img_Caso.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,7 +121,7 @@ public class NovoCaso extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), "Ocorreu um erro a abrir a galeria.", Toast.LENGTH_SHORT).show();
                             }
                         }
-                    });
+                    }, null);
                 }
             }
         });
@@ -115,7 +137,7 @@ public class NovoCaso extends AppCompatActivity {
                         img_Caso.setImageResource(R.drawable.ic_add_image_icon_icons_com_54218);
                         btn_RemoverImagem.setVisibility(View.GONE);
                     }
-                });
+                }, null);
             }
         });
 
@@ -192,6 +214,72 @@ public class NovoCaso extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        switch(item.getItemId()){
+            case R.id.nav_home:
+                Intent intent = new Intent(getApplicationContext(), EstacionamentoADecorrer.class);
+                startActivity(intent);
+            case R.id.nav_caso:
+                break;
+            case R.id.nav_terminar_estacionamento:
+                showMessageOKCancel("Tem a certeza que quer finalizar o estacionamento?",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                finalizarEstacionamento();
+                            }
+                        },
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                NavigationView navigationView = findViewById(R.id.nav_view_novo_caso);
+                                navigationView.setCheckedItem(R.id.nav_caso);
+                            }
+                        });
+                break;
+            case R.id.nav_logout:
+                showMessageOKCancel("Se fizer logout o estacionamento continuará ativo! Tem a certeza que quer continuar?",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                bd.logoutLocal();
+                                Intent intent = new Intent(getApplicationContext(), Login.class);
+                                startActivity(intent);
+                            }
+                        }, null);
+                break;
+        }
+
+        return true;
+    }
+
+    private void finalizarEstacionamento() {
+        if(isInternetAvailable()){
+            Call<JsonObject> call = RetrofitClient.getInstance().getMyApi().saida(loggedInUser.getId());
+            call.enqueue(new Callback<JsonObject>() {
+                @Override
+                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                    if(response.body().get("Sucesso").getAsBoolean()){
+                        bd.acabarEstacionamentoLocal();
+                        Toast.makeText(getApplicationContext(), "O estacionamento foi terminado com sucesso!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getApplicationContext(), PaginaInicial.class);
+                        startActivity(intent);
+                    }else{
+                        Toast.makeText(getApplicationContext(), response.body().get("Mensagem").getAsString(), Toast.LENGTH_LONG).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<JsonObject> call, Throwable t) {
+                    Toast.makeText(getApplicationContext(), "Aconteceu algo errado ao tentar finalizar o estacionamento", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }else{
+            Toast.makeText(getApplicationContext(), "É necessária uma conexão à internet para efetuar essa operação!", Toast.LENGTH_SHORT).show();
+        }
+    }
 
     //Funções auxiliares
 
@@ -209,13 +297,12 @@ public class NovoCaso extends AppCompatActivity {
         return connected;
     }
 
-    private void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener) {
+    private void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener, DialogInterface.OnClickListener cancelListener) {
         new AlertDialog.Builder(NovoCaso.this)
                 .setMessage(message)
                 .setPositiveButton("Sim", okListener)
-                .setNegativeButton("Não", null)
+                .setNegativeButton("Não", cancelListener)
                 .create()
                 .show();
     }
-
 }

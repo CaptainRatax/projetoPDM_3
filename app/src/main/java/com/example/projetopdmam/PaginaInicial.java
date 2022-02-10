@@ -1,10 +1,14 @@
 package com.example.projetopdmam;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.Manifest;
 import android.content.Context;
@@ -15,6 +19,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -27,17 +32,20 @@ import com.example.projetopdmam.Modelos.Estacionamento;
 import com.example.projetopdmam.Modelos.Lugar;
 import com.example.projetopdmam.Modelos.Utilizador;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 import com.google.gson.JsonObject;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PaginaInicial extends AppCompatActivity {
+public class PaginaInicial extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     BaseDados bd = new BaseDados(this);
 
     private static final int PERMISSION_REQUEST_CODE = 200;
+
+    private DrawerLayout drawer;
 
     Utilizador loggedInUser;
     @Override
@@ -110,10 +118,28 @@ public class PaginaInicial extends AppCompatActivity {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         setContentView(R.layout.activity_pagina_inicial);
 
+        Toolbar toolbar = findViewById(R.id.toolbar_inicial);
+        setSupportActionBar(toolbar);
+
+        drawer = findViewById(R.id.drawer_layout_inicial);
+        NavigationView navigationView = findViewById(R.id.nav_view_inicial);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+
+        View headerView = navigationView.getHeaderView(0);
+        TextView txt_Nome = (TextView) headerView.findViewById(R.id.nav_nome);
+        TextView txt_Email = (TextView) headerView.findViewById(R.id.nav_email);
+
+        toggle.syncState();
+
+        txt_Nome.setText(loggedInUser.getNome());
+        txt_Email.setText(loggedInUser.getEmail());
+
         TextView txt_BemVindo = findViewById(R.id.txt_BemVindo);
         txt_BemVindo.setText("Bem vindo " + loggedInUser.getNome() + "!");
-
-        FloatingActionButton btn_Logout = findViewById(R.id.btn_Logout);
         Button btn_QRCodeScanner = findViewById(R.id.btn_QRCodeScanner);
         ImageView imageView = findViewById(R.id.imageView);
 
@@ -150,20 +176,37 @@ public class PaginaInicial extends AppCompatActivity {
                 }
             }
         });
+    }
 
-        btn_Logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showMessageSimNao("Tem a certeza que quer fazer logout?", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        bd.logoutLocal();
-                        Intent intent = new Intent(getApplicationContext(), Login.class);
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.nav_comecarEstacionamento:
+                if(checkPermission()){
+                    if(isInternetAvailable()){
+                        Intent intent = new Intent(getApplicationContext(), QRCodeReader.class);
                         startActivity(intent);
+                    }else {
+                        Toast.makeText(PaginaInicial.this, "É necessário uma conexão à internet...", Toast.LENGTH_LONG).show();
                     }
-                }, null);
-            }
-        });
+                }else{
+                    requestPermission();
+                    Toast.makeText(PaginaInicial.this, "É necessário aceitar a permissão de acesso à câmara!", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.nav_logout:
+                showMessageOKCancel("Tem a certeza que quer fazer logout?",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                bd.logoutLocal();
+                                Intent intent = new Intent(getApplicationContext(), Login.class);
+                                startActivity(intent);
+                            }
+                        });
+                break;
+        }
+        return false;
     }
 
     //Funções auxiliares

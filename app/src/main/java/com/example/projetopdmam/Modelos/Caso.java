@@ -7,25 +7,28 @@ public class Caso {
     String Titulo;
     String Descricao;
     String Fotografia;
+    boolean isActive;
 
 
     public Caso(){
 
     }
 
-    public Caso(int id, int estacionamentoId, String titulo, String descricao, String fotografia) {
+    public Caso(int id, int estacionamentoId, String titulo, String descricao, String fotografia, boolean isActive) {
         Id = id;
         EstacionamentoId = estacionamentoId;
         Titulo = titulo;
         Descricao = descricao;
         Fotografia = fotografia;
+        this.isActive = isActive;
     }
 
-    public Caso(int estacionamentoId, String titulo, String descricao, String fotografia) {
+    public Caso(int estacionamentoId, String titulo, String descricao, String fotografia, boolean isActive) {
         EstacionamentoId = estacionamentoId;
         Titulo = titulo;
         Descricao = descricao;
         Fotografia = fotografia;
+        this.isActive = isActive;
     }
 
     public int getId() {
@@ -66,5 +69,13 @@ public class Caso {
 
     public void setFotografia(String fotografia) {
         Fotografia = fotografia;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 }
