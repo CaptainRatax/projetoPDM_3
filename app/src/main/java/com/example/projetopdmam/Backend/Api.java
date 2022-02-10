@@ -34,9 +34,6 @@ public interface Api {
     @POST("saida")
     Call<JsonObject> saida(@Query("UtilizadorId") int UtilizadorId);
 
-    //@GET("Inspecoes/Devolver")
-    //Call<JsonObject> getInspecaoPorId(@Query("Id") int Id);
-
     @GET("estacionamentos")
     Call<JsonObject> getEstacionamentoAtivoPorIdUtilizador(@Query("UtilizadorId") int UtilizadorId);
 
@@ -46,9 +43,6 @@ public interface Api {
     @GET("estacionamentos/utilizadorlugarid")
     Call<JsonObject> getEstacionamentoAtivoPorIdUtilizadorIdLugar(@Query("UtilizadorId") int IdUtilizador, @Query("LugarId") int IdLugar);
 
-    //@DELETE("Inspecoes/Cancelar")
-    //Call<JsonObject> cancelarInspecao(@Query("Id") int Id);
-
     @GET("casos")
     Call<JsonObject> getCasoPorId(@Query("EstacionamentoId") int EstacionamentoId);
 
@@ -57,9 +51,6 @@ public interface Api {
 
     @PUT("casos/editar")
     Call<JsonObject> editarCaso(@Body JsonObject body);
-
-    //@GET("Casos/DevolverPorInspecaoId")
-    //Call<JsonObject> getCasosPorInspecaoId(@Query("Id") int Id);
 
     @DELETE("casos/eliminar")
     Call<JsonObject> eliminarCaso(@Query("EstacionamentoId") int EstacionamentoId);

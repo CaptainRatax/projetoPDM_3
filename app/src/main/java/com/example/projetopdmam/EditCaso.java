@@ -14,6 +14,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -45,7 +46,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class NovoCaso extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class EditCaso extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     BaseDados bd = new BaseDados(this);
 
@@ -55,6 +56,7 @@ public class NovoCaso extends AppCompatActivity implements NavigationView.OnNavi
     Estacionamento estacionamentoADecorrer;
     Lugar lugar;
     String fotografiaBase64 = "";
+    Caso caso;
     private static final int IMG_REQUEST = 21;
 
     ImageView img_Caso;
@@ -63,16 +65,17 @@ public class NovoCaso extends AppCompatActivity implements NavigationView.OnNavi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        setContentView(R.layout.activity_novo_caso);
+        setContentView(R.layout.activity_edit_caso);
         loggedInUser=bd.getLoggedInUser();
         estacionamentoADecorrer =bd.getEstacionamentoADecorrer();
         lugar =bd.getLugarLocal();
+        caso = bd.getCasoPorIdEstacionamento(estacionamentoADecorrer.getId());
 
-        Toolbar toolbar = findViewById(R.id.toolbar_novo_caso);
+        Toolbar toolbar = findViewById(R.id.toolbar_editar_caso);
         setSupportActionBar(toolbar);
 
-        drawer = findViewById(R.id.drawer_layout_novo_caso);
-        NavigationView navigationView = findViewById(R.id.nav_view_novo_caso);
+        drawer = findViewById(R.id.drawer_layout_editar_caso);
+        NavigationView navigationView = findViewById(R.id.nav_view_editar_caso);
         navigationView.setNavigationItemSelectedListener(this);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
@@ -94,6 +97,15 @@ public class NovoCaso extends AppCompatActivity implements NavigationView.OnNavi
         EditText edt_TituloCaso = findViewById(R.id.edt_TituloCasoEditar);
         EditText edt_DescricaoCaso = findViewById(R.id.edt_DescricaoCasoEditar);
         img_Caso = findViewById(R.id.img_CasoEditar);
+
+        edt_TituloCaso.setText(caso.getTitulo());
+        edt_DescricaoCaso.setText(caso.getDescricao());
+
+        if(!caso.getFotografia().equals("")){
+            byte[] decodedByte = Base64.decode(caso.getFotografia(), 0);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
+            img_Caso.setImageBitmap(bitmap);
+        }
 
         img_Caso.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -154,7 +166,7 @@ public class NovoCaso extends AppCompatActivity implements NavigationView.OnNavi
                                     + "\"Descricao\": \"" + descricao + "\", "
                                     + "\"FotografiaBase64\": \"" + fotografiaBase64 + "\" }";
                             JsonObject body = new JsonParser().parse(request).getAsJsonObject();
-                            Call<JsonObject> call = RetrofitClient.getInstance().getMyApi().criarCaso(body);
+                            Call<JsonObject> call = RetrofitClient.getInstance().getMyApi().editarCaso(body);
                             call.enqueue(new Callback<JsonObject>() {
                                 @Override
                                 public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
@@ -167,8 +179,8 @@ public class NovoCaso extends AppCompatActivity implements NavigationView.OnNavi
                                         caso.setDescricao(casoJson.get("Descricao").getAsString());
                                         caso.setFotografia(casoJson.get("Fotografia").getAsString());
                                         caso.setActive(true);
-                                        bd.adicionarCaso(caso);
-                                        Toast.makeText(getApplicationContext(), "Caso criado com sucesso!", Toast.LENGTH_SHORT).show();
+                                        bd.editarCaso(caso);
+                                        Toast.makeText(getApplicationContext(), "Caso editado com sucesso!", Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent(getApplicationContext(), EstacionamentoADecorrer.class);
                                         startActivity(intent);
                                     }else{
@@ -191,7 +203,6 @@ public class NovoCaso extends AppCompatActivity implements NavigationView.OnNavi
                 }
             }
         });
-
     }
 
     @Override
@@ -298,11 +309,12 @@ public class NovoCaso extends AppCompatActivity implements NavigationView.OnNavi
     }
 
     private void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener, DialogInterface.OnClickListener cancelListener) {
-        new AlertDialog.Builder(NovoCaso.this)
+        new AlertDialog.Builder(EditCaso.this)
                 .setMessage(message)
                 .setPositiveButton("Sim", okListener)
                 .setNegativeButton("Não", cancelListener)
                 .create()
                 .show();
     }
+
 }

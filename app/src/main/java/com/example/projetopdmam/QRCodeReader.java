@@ -206,16 +206,16 @@ public class QRCodeReader extends AppCompatActivity implements ZXingScannerView.
 
     }
 
-    //Função auxiliar usada para reciclar código usado duas vezes para começar a inspeção localmente
-    private void comecarEstacionamento(Lugar lugar, JsonObject inspecao){
+    //Função auxiliar usada para reciclar código usado duas vezes para começar o estacionamento localmente
+    private void comecarEstacionamento(Lugar lugar, JsonObject estacionamento){
         //Cria um objeto do tipo Estacionamento usando o Json que recebeu da API
         Estacionamento estacionamentoADecorrer = new Estacionamento();
-        estacionamentoADecorrer.setId(inspecao.get("Id").getAsInt());
-        estacionamentoADecorrer.setDataEntrada(inspecao.get("DataEntrada").getAsString());
-        estacionamentoADecorrer.setDataSaida(inspecao.get("DataSaida").getAsString());
-        estacionamentoADecorrer.setEstacionamentoLivre(inspecao.get("EstacionamentoLivre").getAsBoolean());
-        estacionamentoADecorrer.setUtilizadorId(inspecao.get("UtilizadorId").getAsInt());
-        estacionamentoADecorrer.setLugarId(inspecao.get("LugarId").getAsInt());
+        estacionamentoADecorrer.setId(estacionamento.get("Id").getAsInt());
+        estacionamentoADecorrer.setDataEntrada(estacionamento.get("DataEntrada").getAsString());
+        estacionamentoADecorrer.setDataSaida(estacionamento.get("DataSaida").getAsString());
+        estacionamentoADecorrer.setEstacionamentoLivre(estacionamento.get("EstacionamentoLivre").getAsBoolean());
+        estacionamentoADecorrer.setUtilizadorId(estacionamento.get("UtilizadorId").getAsInt());
+        estacionamentoADecorrer.setLugarId(estacionamento.get("LugarId").getAsInt());
         estacionamentoADecorrer.setActive(true);
         if (bd.getEstacionamentoADecorrer().isActive()) { //Verifica se existe algum estacionamento a decorrer localmente
             //Existe um estacionamento a decorrer localmente
@@ -228,7 +228,7 @@ public class QRCodeReader extends AppCompatActivity implements ZXingScannerView.
             bd.comecarEstacionamentoLocal(estacionamentoADecorrer); //Começa o estacionamento localmente
         }
         if (bd.getLugarLocal().isActive()) {//Verifica se o lugar já existe localmente
-            //A obra existe localmente
+            //O lugar existe localmente
             if (bd.getLugarLocal() != lugar) {//Verifica se o lugar que existe localmente é diferente do recebido
                 bd.editarLugar(lugar); //Se for altera o lugar local e coloca os dados do lugar recebido
             }

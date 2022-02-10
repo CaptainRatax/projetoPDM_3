@@ -13,11 +13,16 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +35,10 @@ import com.example.projetopdmam.Modelos.Utilizador;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.JsonObject;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -103,6 +112,47 @@ public class EstacionamentoADecorrer extends AppCompatActivity implements Naviga
             Toast.makeText(getApplicationContext(), "Sem conexão à internet!", Toast.LENGTH_SHORT).show();
         }
 
+        TextView txt_codigoEstacionamentoInicio = findViewById(R.id.txt_codigoEstacionamentoInicio);
+        TextView txt_nomeUtilizadorInicio = findViewById(R.id.txt_nomeUtilizadorInicio);
+        TextView txt_dataInicio = findViewById(R.id.txt_dataInicio);
+        TextView txt_casoAtivoDesativo = findViewById(R.id.txt_casoAtivoDesativo);
+        TextView txt_titulo_caso_inicio = findViewById(R.id.txt_titulo_caso_inicio);
+        TextView txt_descricao_caso_inicio = findViewById(R.id.txt_descricao_caso_inicio);
+        ImageView img_CasoInicio = findViewById(R.id.img_CasoInicio);
+        Button btn_FinalizarEstacionamento = findViewById(R.id.btn_FinalizarEstacionamento);
+
+        txt_codigoEstacionamentoInicio.setText(lugar.getCodigo());
+        txt_nomeUtilizadorInicio.setText(loggedInUser.getNome());
+
+        String data = estacionamentoADecorrer.getDataEntrada();
+        String dataFormatada =
+                data.substring(8, 10) + "/" +  data.substring(5, 7) + "/" + data.substring(0, 4) + " - " +
+                data.substring(11,13) + ":" + data.substring(14, 16) + ":" + data.substring(17, 19);
+        txt_dataInicio.setText(dataFormatada);
+
+        if(caso.isActive()){
+            txt_casoAtivoDesativo.setText("Caso associado:");
+            txt_titulo_caso_inicio.setVisibility(View.VISIBLE);
+            txt_descricao_caso_inicio.setVisibility(View.VISIBLE);
+
+            txt_titulo_caso_inicio.setText(caso.getTitulo());
+            txt_descricao_caso_inicio.setText(caso.getDescricao());
+
+            if(!caso.getFotografia().equals("")){
+                img_CasoInicio.setVisibility(View.VISIBLE);
+                byte[] decodedByte = Base64.decode(caso.getFotografia(), 0);
+                Bitmap bitmap = BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
+                img_CasoInicio.setImageBitmap(bitmap);
+            }else{
+                img_CasoInicio.setVisibility(View.GONE);
+            }
+        }else{
+            txt_casoAtivoDesativo.setText("Nenhum caso criado...");
+            txt_titulo_caso_inicio.setVisibility(View.GONE);
+            txt_descricao_caso_inicio.setVisibility(View.GONE);
+            img_CasoInicio.setVisibility(View.GONE);
+        }
+
     }
 
     @Override
@@ -112,7 +162,7 @@ public class EstacionamentoADecorrer extends AppCompatActivity implements Naviga
                 break;
             case R.id.nav_caso:
                 if(caso.isActive()){
-                    Intent intent2 = new Intent(getApplicationContext(), EditarCaso.class);
+                    Intent intent2 = new Intent(getApplicationContext(), EditCaso.class);
                     startActivity(intent2);
                 }else{
                     Intent intent = new Intent(getApplicationContext(), NovoCaso.class);

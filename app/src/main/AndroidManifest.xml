@@ -12,29 +12,29 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/renergy_icons_foreground"
+        android:icon="@mipmap/c_parking_icons_round"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/renergy_icons_foreground"
+        android:roundIcon="@mipmap/c_parking_icons_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjetoPDMAM">
         <activity
-            android:name="com.example.projetopdmam.EditarCaso"
+            android:name=".EditCaso"
+            android:exported="false" />
+        <activity
+            android:name=".NovoCaso"
             android:exported="true" />
         <activity
-            android:name="com.example.projetopdmam.NovoCaso"
+            android:name=".QRCodeReader"
             android:exported="true" />
         <activity
-            android:name="com.example.projetopdmam.QRCodeReader"
-            android:exported="true" />
-        <activity
-            android:name="com.example.projetopdmam.EstacionamentoADecorrer"
+            android:name=".EstacionamentoADecorrer"
             android:exported="true"
-            android:theme="@style/Theme.ProjetoPDMAM.NoActionBar"/>
+            android:theme="@style/Theme.ProjetoPDMAM.NoActionBar" />
         <activity
-            android:name="com.example.projetopdmam.PaginaInicial"
+            android:name=".PaginaInicial"
             android:exported="true" />
         <activity
-            android:name="com.example.projetopdmam.Login"
+            android:name=".Login"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

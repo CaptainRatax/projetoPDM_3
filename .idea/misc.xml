@@ -8,8 +8,9 @@
         <entry key="..\:/Users/ratax/Downloads/projetoPDM_AM/app/src/main/res/drawable/ic_baseline_image_not_supported_24.xml" value="0.1935" />
         <entry key="..\:/Users/ratax/Downloads/projetoPDM_AM/app/src/main/res/drawable/ic_logout_circle.xml" value="0.1935" />
         <entry key="..\:/Users/ratax/Downloads/projetoPDM_AM/app/src/main/res/layout/activity_detalhes_caso.xml" value="0.18541666666666667" />
+        <entry key="..\:/Users/ratax/Downloads/projetoPDM_AM/app/src/main/res/layout/activity_edit_caso.xml" value="0.18541666666666667" />
         <entry key="..\:/Users/ratax/Downloads/projetoPDM_AM/app/src/main/res/layout/activity_editar_caso.xml" value="0.358695652173913" />
-        <entry key="..\:/Users/ratax/Downloads/projetoPDM_AM/app/src/main/res/layout/activity_estacionamento_adecorrer.xml" value="0.2" />
+        <entry key="..\:/Users/ratax/Downloads/projetoPDM_AM/app/src/main/res/layout/activity_estacionamento_adecorrer.xml" value="0.25" />
         <entry key="..\:/Users/ratax/Downloads/projetoPDM_AM/app/src/main/res/layout/activity_inspecao_adecorrer.xml" value="0.358695652173913" />
         <entry key="..\:/Users/ratax/Downloads/projetoPDM_AM/app/src/main/res/layout/activity_novo_caso.xml" value="0.358695652173913" />
         <entry key="..\:/Users/ratax/Downloads/projetoPDM_AM/app/src/main/res/layout/activity_pagina_inicial.xml" value="0.358695652173913" />
@@ -18,6 +19,7 @@
         <entry key="..\:/Users/ratax/Downloads/projetoPDM_AM/app/src/main/res/layout/login_main.xml" value="0.25" />
         <entry key="..\:/Users/ratax/Downloads/projetoPDM_AM/app/src/main/res/layout/nav_header.xml" value="0.5" />
         <entry key="..\:/Users/ratax/Downloads/projetoPDM_AM/app/src/main/res/menu/drawer_menu.xml" value="0.33" />
+        <entry key="..\:/Users/ratax/Downloads/projetoPDM_AM/app/src/main/res/menu/drawer_menu_estacionamento.xml" value="0.18541666666666667" />
         <entry key="..\:/Users/ratax/Downloads/projetoPDM_AM/app/src/main/res/menu/drawer_menu_inicial.xml" value="0.3625" />
       </map>
     </option>

@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import com.example.projetopdmam.Backend.BaseDados;
 import com.example.projetopdmam.Backend.RetrofitClient;
+import com.example.projetopdmam.Modelos.Caso;
 import com.example.projetopdmam.Modelos.Estacionamento;
 import com.example.projetopdmam.Modelos.Lugar;
 import com.example.projetopdmam.Modelos.Utilizador;
@@ -81,6 +82,28 @@ public class PaginaInicial extends AppCompatActivity implements NavigationView.O
                             estacionamentoADecorrer.setDataSaida(estacionamento.get("DataSaida").getAsString());
                             estacionamentoADecorrer.setEstacionamentoLivre(estacionamento.get("EstacionamentoLivre").getAsBoolean());
                             estacionamentoADecorrer.setActive(true);
+
+                            JsonObject casoJson = response.body().get("Caso").getAsJsonObject();
+
+                            if(casoJson.get("Id").getAsInt() != 0){
+                                Caso caso = new Caso();
+                                caso.setId(casoJson.get("Id").getAsInt());
+                                caso.setEstacionamentoId(casoJson.get("EstacionamentoId").getAsInt());
+                                caso.setTitulo(casoJson.get("Titulo").getAsString());
+                                caso.setDescricao(casoJson.get("Descricao").getAsString());
+                                caso.setFotografia(casoJson.get("Fotografia").getAsString());
+                                caso.setActive(true);
+                                if (bd.getCasoPorIdEstacionamento(estacionamentoADecorrer.getId()).isActive()) {//Verifica se o caso já existe localmente
+                                    //O caso existe localmente
+                                    if (bd.getCasoPorIdEstacionamento(estacionamentoADecorrer.getId()) != caso) {//Verifica se o caso que existe localmente é diferente do recebido da API
+                                        bd.eliminarTodosOsCasos();
+                                        bd.adicionarCaso(caso);
+                                    }
+                                } else {
+                                    //O caso não existe localmente
+                                    bd.adicionarCaso(caso); //Cria o caso localmente
+                                }
+                            }
 
                             if (bd.getEstacionamentoADecorrer().isActive()) { //Verifica se existe algum estacionamento a decorrer localmente
                                 //Existe um estacionamento a decorrer localmente

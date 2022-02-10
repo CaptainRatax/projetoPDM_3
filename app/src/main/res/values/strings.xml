@@ -10,10 +10,8 @@
     <string name="password_input">Password Input</string>
     <string name="logout">Logout</string>
     <string name="bem_vindo_utilizador">Bem vindo utilizador!</string>
-    <string name="come_ar_inspe_o_com_qr">Começar inspeção com QR</string>
     <string name="todo">TODO</string>
     <string name="iniciar">Iniciar</string>
-    <string name="id_inspe_o">Id Inspeção</string>
     <string name="qrCoderResult">...</string>
     <string name="c_parking">C-PARKING</string>
     <string name="email">Email</string>
