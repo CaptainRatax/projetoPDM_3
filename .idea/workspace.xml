@@ -14,82 +14,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9b90b246-22cf-41a9-8bd9-4fee5a3bba75" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/c_parking_icons-playstore.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/EditCaso.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_edit_caso.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/c_parking_icons.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/c_parking_icons_round.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/c_parking_icons.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/c_parking_icons_foreground.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/c_parking_icons_round.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/c_parking_icons.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/c_parking_icons_foreground.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/c_parking_icons_round.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/c_parking_icons.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/c_parking_icons_foreground.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/c_parking_icons_round.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/c_parking_icons.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/c_parking_icons_foreground.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/c_parking_icons_round.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/c_parking_icons.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/c_parking_icons_foreground.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/c_parking_icons_round.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/values/c_parking_icons_background.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.2/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.2/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.2/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.2/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.2/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.2/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.2/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.2/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.2/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.2/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/Backend/Api.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/Backend/Api.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/Backend/BaseDados.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/Backend/BaseDados.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/EditarCaso.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/EstacionamentoADecorrer.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/EstacionamentoADecorrer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/NovoCaso.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/NovoCaso.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/PaginaInicial.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/PaginaInicial.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/QRCodeReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/QRCodeReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/parking_logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/c_parking_logo.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/renergylogo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_editar_caso.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_estacionamento_adecorrer.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_estacionamento_adecorrer.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_novo_caso.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_novo_caso.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/login_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/login_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/renergy_icons.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/renergy_icons_round.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/renergy_icons.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/renergy_icons_background.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/renergy_icons_foreground.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/renergy_icons_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/renergy_icons.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/renergy_icons_background.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/renergy_icons_foreground.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/renergy_icons_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/renergy_icons.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/renergy_icons_background.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/renergy_icons_foreground.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/renergy_icons_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/renergy_icons.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/renergy_icons_background.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/renergy_icons_foreground.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/renergy_icons_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/renergy_icons.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/renergy_icons_background.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/renergy_icons_foreground.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/renergy_icons_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-night/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-night/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_edit_caso.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_edit_caso.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[15d6f21]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\ratax\.android\avd\Nexus_5X_API_30.avd]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -265,16 +198,5 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/example/projetopdmam/EstacionamentoADecorrer.java</url>
-          <line>163</line>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

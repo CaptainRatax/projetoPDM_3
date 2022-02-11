@@ -153,6 +153,19 @@ public class EstacionamentoADecorrer extends AppCompatActivity implements Naviga
             img_CasoInicio.setVisibility(View.GONE);
         }
 
+        btn_FinalizarEstacionamento.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showMessageOKCancel("Tem a certeza que quer finalizar o estacionamento?",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                finalizarEstacionamento();
+                            }
+                        },null);
+            }
+        });
+
     }
 
     @Override

@@ -157,14 +157,25 @@ public class EditCaso extends AppCompatActivity implements NavigationView.OnNavi
             public void onClick(View view) {
                 String titulo = edt_TituloCaso.getText().toString();
                 String descricao = edt_DescricaoCaso.getText().toString();
+
                 if(!titulo.equals("")){
                     if(!descricao.equals("")){
                         if(isInternetAvailable()){
-                            String request = "{"
-                                    + " \"EstacionamentoId\": " + estacionamentoADecorrer.getId() + ", "
-                                    + "\"Titulo\": \"" + titulo + "\", "
-                                    + "\"Descricao\": \"" + descricao + "\", "
-                                    + "\"FotografiaBase64\": \"" + fotografiaBase64 + "\" }";
+                            String request;
+                            if (fotografiaBase64 == "" && caso.getFotografia() != ""){
+                                request = "{"
+                                        + " \"EstacionamentoId\": " + estacionamentoADecorrer.getId() + ", "
+                                        + "\"Titulo\": \"" + titulo + "\", "
+                                        + "\"Descricao\": \"" + descricao + "\", "
+                                        + "\"FotografiaBase64\": \"" + caso.getFotografia() + "\" }";
+                            }else{
+                                request = "{"
+                                        + " \"EstacionamentoId\": " + estacionamentoADecorrer.getId() + ", "
+                                        + "\"Titulo\": \"" + titulo + "\", "
+                                        + "\"Descricao\": \"" + descricao + "\", "
+                                        + "\"FotografiaBase64\": \"" + fotografiaBase64 + "\" }";
+                            }
+
                             JsonObject body = new JsonParser().parse(request).getAsJsonObject();
                             Call<JsonObject> call = RetrofitClient.getInstance().getMyApi().editarCaso(body);
                             call.enqueue(new Callback<JsonObject>() {
@@ -189,7 +200,7 @@ public class EditCaso extends AppCompatActivity implements NavigationView.OnNavi
                                 }
                                 @Override
                                 public void onFailure(Call<JsonObject> call, Throwable t) {
-                                    Toast.makeText(getApplicationContext(), "Aconteceu algo errado ao tentar criar o caso", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(), "Aconteceu algo errado ao tentar editar o caso", Toast.LENGTH_LONG).show();
                                 }
                             });
                         }else{
@@ -203,6 +214,40 @@ public class EditCaso extends AppCompatActivity implements NavigationView.OnNavi
                 }
             }
         });
+
+        Button btn_eliminar_caso = findViewById(R.id.btn_eliminar_caso);
+
+        btn_eliminar_caso.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showMessageOKCancel("Tem a certeza que quer finalizar o estacionamento?",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Call<JsonObject> call = RetrofitClient.getInstance().getMyApi().eliminarCaso(caso.getEstacionamentoId());
+                                call.enqueue(new Callback<JsonObject>() {
+                                    @Override
+                                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                                        if(response.body().get("Sucesso").getAsBoolean()){
+
+                                            bd.eliminarTodosOsCasos();
+                                            Intent intent = new Intent(getApplicationContext(), EstacionamentoADecorrer.class);
+                                            startActivity(intent);
+                                        }else{
+                                            Toast.makeText(getApplicationContext(), response.body().get("Mensagem").getAsString(), Toast.LENGTH_LONG).show();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<JsonObject> call, Throwable t) {
+                                        Toast.makeText(getApplicationContext(), "Aconteceu algo errado ao tentar eliminar o caso", Toast.LENGTH_LONG).show();
+                                    }
+                                });
+                            }
+                        }, null);
+            }
+        });
+
     }
 
     @Override

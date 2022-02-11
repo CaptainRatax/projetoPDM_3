@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:text="Título"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -50,8 +50,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="10dp"
             android:layout_marginEnd="30dp"
+            android:layout_marginTop="10dp"
             android:ems="10"
             android:hint="Título do Caso"
             android:inputType="textPersonName"
@@ -59,7 +59,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewt4" />
+            app:layout_constraintTop_toBottomOf="@+id/btn_eliminar_caso" />
 
         <EditText
             android:id="@+id/edt_DescricaoCasoEditar"
@@ -121,6 +121,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/img_CasoEditar"
             app:layout_constraintVertical_bias="1.0" />
+
+        <Button
+            android:id="@+id/btn_eliminar_caso"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:backgroundTint="@android:color/holo_red_dark"
+            android:textColor="#FFFFFF"
+            android:text="Eliminar Caso"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar_editar_caso" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
