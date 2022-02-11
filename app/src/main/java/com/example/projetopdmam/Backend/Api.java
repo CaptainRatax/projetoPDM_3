@@ -24,7 +24,6 @@ public interface Api {
     @POST("login")
     Call<JsonObject> login(@Body JsonObject body);
 
-
     @GET("lugares")
     Call<JsonObject> getLugarPorCodigo(@Query("Codigo") String Codigo);
 
